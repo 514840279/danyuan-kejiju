@@ -22,8 +22,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import tk.ainiyue.danyuan.application.kejiju.renyuan.po.KjryJbxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.renyuan.service.KjryJbxxService;
+import tk.ainiyue.danyuan.application.kejiju.renyuan.vo.KjryJbxxCount;
 import tk.ainiyue.danyuan.application.kejiju.renyuan.vo.KjryJbxxInfoVo;
-import tk.ainiyue.danyuan.application.kejiju.xiangmu.controller.KjxmJbxxInfoController;
 
 /**    
 *  文件名 ： KjryJbxxInfoController.java  
@@ -142,7 +142,7 @@ public class KjryJbxxController {
 	@ApiOperation(value = "更新前", notes = "")
 	@RequestMapping(path = "/updDatile", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView updDatile(KjryJbxxInfo info, HttpServletRequest request) {
-		logger.info("updDatile", KjxmJbxxInfoController.class);
+		logger.info("updDatile", KjryJbxxController.class);
 		if (info.getPersonId() == null) {
 			info.setPersonId(UUID.randomUUID().toString());
 		} else {
@@ -151,6 +151,14 @@ public class KjryJbxxController {
 		ModelAndView view = new ModelAndView("kejiju/renyuan/jbxx_updDatile");
 		view.addObject("KjryJbxxInfo", info);
 		return view;
+	}
+	
+	@ApiOperation(value = "统计信息", notes = "")
+	@RequestMapping(path = "/statistics", method = RequestMethod.POST)
+	@ResponseBody
+	public List<KjryJbxxCount> statistics() {
+		logger.info("statistics", KjryJbxxController.class);
+		return KjryJbxxService.statistics();
 	}
 	
 }

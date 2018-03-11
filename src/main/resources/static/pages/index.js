@@ -52,7 +52,7 @@ _history = [];
 	        $("#tabContainer").tabs({
 	            data : [ {
 	                id : '2CFFD9D78EC73AA9E0F034C890434B04',
-	                text : '项目查询',
+	                text : '科技项目检索',
 	                closeable : true,
 	                url : "pages/kejiju/xiangmu/index.html"
 	            } ],

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import tk.ainiyue.danyuan.application.dic.po.KjDicCglx;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.po.KjcgJbxxInfo;
+import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.KjcgJbxxCount;
 
 /**    
 *  文件名 ： KjcgJbxxInfoService.java  
@@ -82,5 +83,15 @@ public interface KjcgJbxxService {
 	*  @throws  
 	*/
 	KjcgJbxxInfo findone(KjcgJbxxInfo info);
+	
+	/**  
+	*  方法名： statistics  
+	*  功    能： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数： @return 
+	*  返    回： List<KjcgJbxxInfo>  
+	*  作    者 ： wang  
+	*  @throws  
+	*/
+	List<KjcgJbxxCount> statistics();
 	
 }

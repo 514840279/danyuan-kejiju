@@ -23,6 +23,7 @@ import io.swagger.annotations.ApiOperation;
 import tk.ainiyue.danyuan.application.dic.po.KjDicCglx;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.po.KjcgJbxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.service.KjcgJbxxService;
+import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.KjcgJbxxCount;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.KjcgJbxxInfoVo;
 
 /**    
@@ -125,8 +126,6 @@ public class KjcgJbxxController {
 		info.setResultLinks(request.getParameter("resultLinks"));
 		info.setResultTitle(request.getParameter("resultTitle"));
 		info.setResultType(request.getParameter("resultType"));
-		
-		System.err.println(info);
 		ModelAndView view = new ModelAndView("kejiju/chengguo/detail");
 		view.addObject("kjcgJbxxInfo", info);
 		return view;
@@ -139,27 +138,17 @@ public class KjcgJbxxController {
 		if (info.getResultId() == null) {
 			info.setResultId(UUID.randomUUID().toString());
 		}
-		//		info.setResultId(request.getParameter("resultId"));
-		//		info.setAwards(request.getParameter("awards"));
-		//		info.setCdc(request.getParameter("cdc"));
-		//		info.setCompletedDate(request.getParameter("completedDate"));
-		//		info.setCompletedOrganization(request.getParameter("completedOrganization"));
-		//		info.setCompletedby(request.getParameter("completedby"));
-		//		info.setDiscipline(request.getParameter("discipline"));
-		//		info.setIndustry(request.getParameter("industry"));
-		//		info.setKeyword(request.getParameter("keyword"));
-		//		info.setOtherCode(request.getParameter("otherCode"));
-		//		info.setProjectId(request.getParameter("projectId"));
-		//		info.setProjectName(request.getParameter("projectName"));
-		//		info.setResultAbstract(request.getParameter("resultAbstract"));
-		//		info.setResultLinks(request.getParameter("resultLinks"));
-		//		info.setResultTitle(request.getParameter("resultTitle"));
-		//		info.setResultType(request.getParameter("resultType"));
-		
-		System.err.println(info);
 		ModelAndView view = new ModelAndView("kejiju/chengguo/upd");
 		view.addObject("kjcgJbxxInfo", info);
 		return view;
+	}
+	
+	@ApiOperation(value = "统计信息", notes = "")
+	@RequestMapping(path = "/statistics", method = RequestMethod.POST)
+	@ResponseBody
+	public List<KjcgJbxxCount> statistics() {
+		logger.info("statistics", KjcgJbxxController.class);
+		return kjcgJbxxService.statistics();
 	}
 	
 }

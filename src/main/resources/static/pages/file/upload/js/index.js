@@ -3,14 +3,14 @@ $(function() {
 		theme: 'fa',
         language: 'zh',
         allowedFileExtensions: ['jpg', 'gif', 'png',"xml","xls","xlsx","pdf"],//接收的文件后缀
-//         uploadExtraData:{"username": 1, "fileName":'123.mp3'},
+         uploadExtraData:{"username": username,path:path },
 		showPreview: true,
         showUpload: true,
         showPreview :true, //是否显示预览
 //         showCaption:false,//是否显示标题
         language: 'zh',
         multiple: true,
-        uploadUrl: '/sysFileUploadInfo/upload'
+        uploadUrl: '/sysFileUploadInfo/upload/'+path
         
       }).on("fileuploaded", function (event, data, previewId, index){
     	  var file = data.files[index];

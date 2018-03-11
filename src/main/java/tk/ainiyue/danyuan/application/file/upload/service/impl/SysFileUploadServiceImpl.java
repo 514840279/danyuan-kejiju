@@ -19,45 +19,44 @@ import tk.ainiyue.danyuan.application.file.upload.service.SysFileUploadService;
 
 @Service("sysFileUploadService")
 public class SysFileUploadServiceImpl implements SysFileUploadService {
-
+	
 	@Autowired
 	private SysFileUploadDao sysFileUploadDao;
-
+	
 	@Override
 	public void save(SysFileUploadInfo info) {
-		sysFileUploadDao.save(info)		;
+		sysFileUploadDao.save(info);
 	}
-
+	
 	@Override
-	public Page<SysFileUploadInfo> findAllBySearchText(int pageNumber, int pageSize, String searchText) {
+	public Page<SysFileUploadInfo> findAllBySearchText(int pageNumber, int pageSize, String discription) {
 		SysFileUploadInfo info = new SysFileUploadInfo();
-		info.setCreateUser(searchText);
+		info.setDiscription(discription);
 		Example<SysFileUploadInfo> example = Example.of(info);
 		Sort sort = new Sort(new Order(Direction.ASC, "createTime"));
 		PageRequest request = new PageRequest(pageNumber - 1, pageSize, sort);
 		Page<SysFileUploadInfo> sourceCodes = sysFileUploadDao.findAll(example, request);
 		return sourceCodes;
 	}
-
+	
 	@Override
 	public void delete(List<SysFileUploadInfo> list) {
-		if(list.isEmpty()){
+		if (list.isEmpty()) {
 			return;
-		}else{
+		} else {
 			Iterator<SysFileUploadInfo> aa = list.iterator();
 			while (aa.hasNext()) {
 				SysFileUploadInfo info = aa.next();
 				String path = info.getPath();
 				File file = new File(path);
 				if (!file.exists()) {
-				        System.out.println("删除文件失败:" + path + "不存在！");
+					System.out.println("删除文件失败:" + path + "不存在！");
 				} else {
-				    if (file.exists() && file.isFile())
-				    	if (file.delete()) {
-				            System.out.println("删除单个文件" + path + "成功！");
-				    	}
-				    else
-				    	System.out.println("删除文件失败:" + path + "不存在！");
+					if (file.exists() && file.isFile())
+						if (file.delete()) {
+							System.out.println("删除单个文件" + path + "成功！");
+						} else
+							System.out.println("删除文件失败:" + path + "不存在！");
 				}
 				sysFileUploadDao.delete(info);
 			}

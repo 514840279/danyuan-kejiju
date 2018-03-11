@@ -20,8 +20,10 @@ import com.mysql.jdbc.StringUtils;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import tk.ainiyue.danyuan.application.kejiju.renyuan.controller.KjryJbxxController;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.po.KjxmJbxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.service.KjxmJbxxService;
+import tk.ainiyue.danyuan.application.kejiju.xiangmu.vo.KjxmJbxxCount;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.vo.KjxmJbxxInfoVo;
 
 /**    
@@ -162,6 +164,14 @@ public class KjxmJbxxInfoController {
 		ModelAndView view = new ModelAndView("kejiju/xiangmu/jbxx_updDatile");
 		view.addObject("KjxmJbxxInfo", info);
 		return view;
+	}
+	
+	@ApiOperation(value = "统计信息", notes = "")
+	@RequestMapping(path = "/statistics", method = RequestMethod.POST)
+	@ResponseBody
+	public List<KjxmJbxxCount> statistics() {
+		logger.info("statistics", KjryJbxxController.class);
+		return kjxmJbxxService.statistics();
 	}
 	
 }

@@ -1,5 +1,6 @@
 package tk.ainiyue.danyuan.application.kejiju.chengguo.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import tk.ainiyue.danyuan.application.dic.po.KjDicCglx;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.dao.KjcgJbxxDao;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.po.KjcgJbxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.service.KjcgJbxxService;
+import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.KjcgJbxxCount;
 
 /**    
 *  文件名 ： KjcgJbxxInfoServiceImpl.java  
@@ -118,6 +120,27 @@ public class KjcgJbxxServiceImpl implements KjcgJbxxService {
 	@Override
 	public KjcgJbxxInfo findone(KjcgJbxxInfo info) {
 		return kjcgJbxxDao.findOne(info);
+	}
+	
+	/** 
+	*  方法名 ： statistics
+	*  功    能 ： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数 ： @return  
+	*  参    考 ： @see tk.ainiyue.danyuan.application.kejiju.chengguo.service.KjcgJbxxService#statistics()  
+	*  作    者 ： wang  
+	*/
+	
+	@Override
+	public List<KjcgJbxxCount> statistics() {
+		List<Object[]> list = kjcgJbxxDao.statistics();
+		List<KjcgJbxxCount> jblist = new ArrayList<>();
+		for (Object[] objects : list) {
+			KjcgJbxxCount count = new KjcgJbxxCount();
+			count.setResultType(String.valueOf(objects[0]));
+			count.setNumbers(Integer.valueOf(String.valueOf(objects[1])));
+			jblist.add(count);
+		}
+		return jblist;
 	}
 	
 }

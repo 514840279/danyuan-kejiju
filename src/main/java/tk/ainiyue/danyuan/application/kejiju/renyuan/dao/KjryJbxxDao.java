@@ -59,4 +59,15 @@ public interface KjryJbxxDao extends JpaRepository<KjryJbxxInfo, Serializable> {
 	@Query("select distinct t.degree from KjryJbxxInfo t ")
 	List<String> dicXw();
 	
+	/**  
+	*  方法名： statistics  
+	*  功    能： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数： @return 
+	*  返    回： List<Object []>  
+	*  作    者 ： wang  
+	*  @throws  
+	*/
+	@Query("SELECT t.honorary as honorary,COUNT(1) as numbers  FROM KjryJbxxInfo t GROUP BY t.honorary")
+	List<Object[]> statistics();
+	
 }

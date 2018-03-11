@@ -70,4 +70,15 @@ public interface KjxmJbxxDao extends JpaRepository<KjxmJbxxInfo, Serializable> {
 	@Query("select t.region from KjxmJbxxInfo t ")
 	List<String> dicDq();
 	
+	/**  
+	*  方法名： statistics  
+	*  功    能： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数： @return 
+	*  返    回： List<KjxmJbxxCount>  
+	*  作    者 ： wang  
+	*  @throws  
+	*/
+	@Query("SELECT t.projectDomain as projectDomain,COUNT(1) as numbers  FROM KjxmJbxxInfo t GROUP BY t.projectDomain")
+	List<Object[]> statistics();
+	
 }

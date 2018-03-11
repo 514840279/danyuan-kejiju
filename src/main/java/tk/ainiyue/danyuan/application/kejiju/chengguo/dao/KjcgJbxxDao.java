@@ -37,4 +37,15 @@ public interface KjcgJbxxDao extends JpaRepository<KjcgJbxxInfo, Serializable> {
 	@Query("select distinct t.completedDate  from KjcgJbxxInfo t")
 	List<String> findAllCgsj();
 	
+	/**  
+	*  方法名： statistics  
+	*  功    能： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数： @return 
+	*  返    回： List<KjcgJbxxInfo>  
+	*  作    者 ： wang  
+	*  @throws  
+	*/
+	@Query("SELECT t.resultType as resultType,COUNT(1) as numbers  FROM KjcgJbxxInfo t GROUP BY t.resultType")
+	List<Object[]> statistics();
+	
 }
