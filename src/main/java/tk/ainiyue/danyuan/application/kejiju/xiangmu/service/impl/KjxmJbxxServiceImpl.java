@@ -1,5 +1,9 @@
 package tk.ainiyue.danyuan.application.kejiju.xiangmu.service.impl;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +16,19 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
+import com.mysql.jdbc.StringUtils;
+import com.thoughtworks.xstream.XStream;
+
+import tk.ainiyue.danyuan.application.common.ZipUtils;
+import tk.ainiyue.danyuan.application.kejiju.xiangmu.dao.KjxmDwxxDao;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.dao.KjxmJbxxDao;
+import tk.ainiyue.danyuan.application.kejiju.xiangmu.dao.KjxmRyxxDao;
+import tk.ainiyue.danyuan.application.kejiju.xiangmu.po.KjxmDwxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.po.KjxmJbxxInfo;
+import tk.ainiyue.danyuan.application.kejiju.xiangmu.po.KjxmRyxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.service.KjxmJbxxService;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.vo.KjxmJbxxCount;
+import tk.ainiyue.danyuan.application.kejiju.xiangmu.vo.KjxmJbxxInfoVo;
 
 /**    
 *  文件名 ： KjxmJbxxInfoServiceImpl.java  
@@ -30,7 +43,13 @@ import tk.ainiyue.danyuan.application.kejiju.xiangmu.vo.KjxmJbxxCount;
 @Service("kjxmJbxxInfoService")
 public class KjxmJbxxServiceImpl implements KjxmJbxxService {
 	@Autowired
-	private KjxmJbxxDao kjxmJbxxDao;
+	private KjxmJbxxDao	kjxmJbxxDao;
+	
+	@Autowired
+	private KjxmDwxxDao	kjxmDwxxDao;
+	
+	@Autowired
+	private KjxmRyxxDao	kjxmRyxxDao;
 	
 	/** 
 	*  方法名 ： page
@@ -168,5 +187,96 @@ public class KjxmJbxxServiceImpl implements KjxmJbxxService {
 			jblist.add(count);
 		}
 		return jblist;
+	}
+	
+	/** 
+	*  方法名 ： outputFile
+	*  功    能 ： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数 ： @param vo
+	*  参    数 ： @param path
+	*  参    数 ： @return  
+	*  参    考 ： @see tk.ainiyue.danyuan.application.kejiju.xiangmu.service.KjxmJbxxService#outputFile(tk.ainiyue.danyuan.application.kejiju.xiangmu.vo.KjxmJbxxInfoVo, java.lang.String)  
+	*  作    者 ： wang  
+	 * @throws IOException 
+	*/
+	
+	@Override
+	public String outputFile(KjxmJbxxInfoVo vo, String path) throws IOException {
+		File filepath = new File(path);
+		//		String fullpath = file.getAbsolutePath();
+		if (!filepath.exists()) {
+			filepath.mkdirs();
+		}
+		KjxmJbxxInfo info = new KjxmJbxxInfo();
+		if (!StringUtils.isNullOrEmpty(vo.getProjectName())) {
+			info.setProjectName(vo.getProjectName().trim());
+		}
+		if (!StringUtils.isNullOrEmpty(vo.getProjectDomain().trim())) {
+			info.setProjectDomain(vo.getProjectDomain().trim());
+		}
+		if (!StringUtils.isNullOrEmpty(vo.getApprovalYear().trim())) {
+			info.setApprovalYear(vo.getApprovalYear().trim());
+		}
+		if (!StringUtils.isNullOrEmpty(vo.getRegion().trim())) {
+			info.setRegion(vo.getRegion().trim());
+		}
+		if (!StringUtils.isNullOrEmpty(vo.getProjectType().trim())) {
+			info.setProjectType(vo.getProjectType().trim());
+		}
+		Example<KjxmJbxxInfo> example = Example.of(info);
+		List<KjxmJbxxInfo> list = kjxmJbxxDao.findAll(example);
+		List<File> fileList = new ArrayList<>();
+		for (KjxmJbxxInfo kjxmJbxxInfo : list) {
+			
+			//
+			KjxmDwxxInfo dwxx = new KjxmDwxxInfo();
+			dwxx.setKjxmJbxxInfo(kjxmJbxxInfo);
+			Example<KjxmDwxxInfo> empgzll = Example.of(dwxx);
+			kjxmJbxxInfo.setKjxmDwxxInfos(kjxmDwxxDao.findAll(empgzll));
+			
+			//
+			KjxmRyxxInfo ryxx = new KjxmRyxxInfo();
+			ryxx.setKjxmJbxxInfo(kjxmJbxxInfo);
+			Example<KjxmRyxxInfo> empryxx = Example.of(ryxx);
+			kjxmJbxxInfo.setKjxmRyxxInfos(kjxmRyxxDao.findAll(empryxx));
+			
+			//
+			String fileName = path + "/" + kjxmJbxxInfo.getUuid() + ".xml";
+			System.err.println(kjxmJbxxInfo.toString());
+			File file = new File(fileName);
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			fileList.add(file);
+			XStream xstream = new XStream();
+			// 别称
+			xstream.alias("KjxmJbxxInfo", KjxmJbxxInfo.class);
+			xstream.alias("KjxmDwxxInfo", KjxmDwxxInfo.class);
+			xstream.alias("KjxmRyxxInfo", KjxmRyxxInfo.class);
+			// 忽略
+			xstream.omitField(KjxmDwxxInfo.class, "kjxmJbxxInfo");//把字段节点隐藏
+			// 忽略
+			xstream.omitField(KjxmRyxxInfo.class, "kjxmJbxxInfo");//把字段节点隐藏
+			//序列化
+			String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + xstream.toXML(kjxmJbxxInfo);
+			//			System.err.println(xml);
+			//构造函数中的第二个参数true表示以追加形式写文件
+			FileWriter fw = new FileWriter(fileName);
+			fw.write(xml);
+			fw.close();
+			
+		}
+		String FileName = path + ".zip";
+		if (list.size() > 0) {
+			// 执行打包zip文件
+			/** 测试压缩方法2  */
+			FileOutputStream fos2 = new FileOutputStream(new File(FileName));
+			ZipUtils.toZip(fileList, fos2);
+			for (File file : fileList) {
+				file.delete();
+			}
+		}
+		filepath.delete();
+		return FileName;
 	}
 }

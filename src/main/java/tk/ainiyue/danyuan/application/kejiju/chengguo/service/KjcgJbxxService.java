@@ -1,5 +1,6 @@
 package tk.ainiyue.danyuan.application.kejiju.chengguo.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Page;
 import tk.ainiyue.danyuan.application.dic.po.KjDicCglx;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.po.KjcgJbxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.KjcgJbxxCount;
+import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.KjcgJbxxInfoVo;
 
 /**    
 *  文件名 ： KjcgJbxxInfoService.java  
@@ -93,5 +95,17 @@ public interface KjcgJbxxService {
 	*  @throws  
 	*/
 	List<KjcgJbxxCount> statistics();
+	
+	/**
+	 * @throws IOException   
+	*  方法名： outputFile  
+	*  功    能： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数： @param vo
+	*  参    数： @return 
+	*  返    回： String  
+	*  作    者 ： wang  
+	*  @throws  
+	*/
+	String outputFile(KjcgJbxxInfoVo vo, String path) throws IOException;
 	
 }

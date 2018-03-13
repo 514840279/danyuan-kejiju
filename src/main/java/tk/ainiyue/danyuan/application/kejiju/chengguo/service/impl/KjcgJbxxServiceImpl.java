@@ -1,5 +1,9 @@
 package tk.ainiyue.danyuan.application.kejiju.chengguo.service.impl;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +16,17 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
+import com.mysql.jdbc.StringUtils;
+import com.thoughtworks.xstream.XStream;
+
+import tk.ainiyue.danyuan.application.common.ZipUtils;
 import tk.ainiyue.danyuan.application.dic.dao.KjDicCglxDao;
 import tk.ainiyue.danyuan.application.dic.po.KjDicCglx;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.dao.KjcgJbxxDao;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.po.KjcgJbxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.service.KjcgJbxxService;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.KjcgJbxxCount;
+import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.KjcgJbxxInfoVo;
 
 /**    
 *  文件名 ： KjcgJbxxInfoServiceImpl.java  
@@ -141,6 +150,72 @@ public class KjcgJbxxServiceImpl implements KjcgJbxxService {
 			jblist.add(count);
 		}
 		return jblist;
+	}
+	
+	/** 
+	*  方法名 ： outputFile
+	*  功    能 ： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数 ： @param vo
+	*  参    数 ： @return  
+	*  参    考 ： @see tk.ainiyue.danyuan.application.kejiju.chengguo.service.KjcgJbxxService#outputFile(tk.ainiyue.danyuan.application.kejiju.chengguo.vo.KjcgJbxxInfoVo)  
+	*  作    者 ： wang  
+	 * @throws IOException 
+	*/
+	
+	@Override
+	public String outputFile(KjcgJbxxInfoVo vo, String path) throws IOException {
+		
+		File filepath = new File(path);
+		//		String fullpath = file.getAbsolutePath();
+		if (!filepath.exists()) {
+			filepath.mkdirs();
+		}
+		KjcgJbxxInfo info = new KjcgJbxxInfo();
+		if (!StringUtils.isNullOrEmpty(vo.getCompletedDate().trim())) {
+			info.setCompletedDate(vo.getCompletedDate());
+		}
+		
+		if (!StringUtils.isNullOrEmpty(vo.getResultType().trim())) {
+			info.setResultType(vo.getResultType());
+		}
+		
+		if (!StringUtils.isNullOrEmpty(vo.getProjectName().trim())) {
+			info.setProjectName(vo.getProjectName());
+		}
+		Example<KjcgJbxxInfo> example = Example.of(info);
+		List<KjcgJbxxInfo> list = kjcgJbxxDao.findAll(example);
+		List<File> fileList = new ArrayList<>();
+		for (KjcgJbxxInfo kjcgJbxxInfo : list) {
+			String fileName = path + "/" + kjcgJbxxInfo.getResultId() + ".xml";
+			//			System.err.println(fileName.toString());
+			File file = new File(fileName);
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			fileList.add(file);
+			XStream xstream = new XStream();
+			xstream.alias("KjcgJbxxInfo", KjcgJbxxInfo.class);
+			//序列化
+			String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + xstream.toXML(kjcgJbxxInfo);
+			//			System.err.println(xml);
+			//构造函数中的第二个参数true表示以追加形式写文件
+			FileWriter fw = new FileWriter(fileName);
+			fw.write(xml);
+			fw.close();
+			
+		}
+		String FileName = path + ".zip";
+		if (list.size() > 0) {
+			// 执行打包zip文件
+			/** 测试压缩方法2  */
+			FileOutputStream fos2 = new FileOutputStream(new File(FileName));
+			ZipUtils.toZip(fileList, fos2);
+			for (File file : fileList) {
+				file.delete();
+			}
+		}
+		filepath.delete();
+		return FileName;
 	}
 	
 }
