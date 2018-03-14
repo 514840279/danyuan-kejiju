@@ -2,7 +2,7 @@ $(function() {
 	$("#kejiju_renyuan_files").fileinput({
 		theme: 'fa',
         language: 'zh',
-        allowedFileExtensions: ['jpg', 'gif', 'png',"xml","xls","xlsx","pdf"],//接收的文件后缀
+        allowedFileExtensions: ["xml"],//接收的文件后缀
 //         uploadExtraData:{"username": username,path:path },
 		showPreview: true,
         showUpload: true,
