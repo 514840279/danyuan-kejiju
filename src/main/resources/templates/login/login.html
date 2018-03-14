@@ -14,6 +14,23 @@
 <link rel="stylesheet" href="https://cdn.bootcss.com/ionicons/4.0.0-9/css/ionicons.min.css" />
 <!-- Theme style -->
 <link rel="stylesheet" href="/dist/css/AdminLTE.min.css" />
+<style type="text/css">
+html:{
+height:100%;
+}
+.bg{ 
+background-image:url("/dist/img/login.jpg"); 
+background-position:center center; 
+background-size:100%;
+ opacity: 0.85;
+} 
+.logo{
+font-family: sans-serif;
+color:#7592a7;
+}
+
+
+</style>
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,24 +39,24 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page bg" id="bg" >
 	<div class="login-box">
-		<div class="login-logo">
-			<!--     <a href="../../index2.html"><b>Admin</b>LTE</a> -->
+		<div class="login-logo logo">
+			    <a href="#"><b>大连科技局</b></a>
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
 			<p class="login-box-msg">登录用户</p>
-			<p class="login-box-msg">测试账号：
+<!-- 			<p class="login-box-msg">测试账号： -->
 <!-- 			 	<span style="color: red">admin/admin</span> 	 -->
 <!-- 			 	<span style="color: green">user/user </span>	 -->
 <!-- 			 	<span style="color: blue">test/test</span> -->
 			 	
-			 	<span style="color: red">ke1/ke1</span> 	
-			 	<span style="color: green">ke2/ke2 </span>	
-			 	<span style="color: blue">ke3/ke3</span>
+<!-- 			 	<span style="color: red">ke1/ke1</span> 	 -->
+<!-- 			 	<span style="color: green">ke2/ke2 </span>	 -->
+<!-- 			 	<span style="color: blue">ke3/ke3</span> -->
 			
-			</p>
+<!-- 			</p> -->
 			<form action="/login" method="post">
 				<div class="form-group has-feedback">
 					<input type="text" class="form-control" placeholder="Full name" name="username" /> <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -78,7 +95,7 @@
 	<script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<!-- 	<script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script> -->
 	<script>
-		
+	
 	</script>
 </body>
 </html>
