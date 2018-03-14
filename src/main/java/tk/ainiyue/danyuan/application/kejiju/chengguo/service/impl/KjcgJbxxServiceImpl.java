@@ -16,7 +16,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
-import com.mysql.jdbc.StringUtils;
 import com.thoughtworks.xstream.XStream;
 
 import tk.ainiyue.danyuan.application.common.ZipUtils;
@@ -170,20 +169,11 @@ public class KjcgJbxxServiceImpl implements KjcgJbxxService {
 		if (!filepath.exists()) {
 			filepath.mkdirs();
 		}
-		KjcgJbxxInfo info = new KjcgJbxxInfo();
-		if (!StringUtils.isNullOrEmpty(vo.getCompletedDate().trim())) {
-			info.setCompletedDate(vo.getCompletedDate());
+		System.out.println(vo.toString());
+		List<KjcgJbxxInfo> list = kjcgJbxxDao.findAllByMulitity(vo.getCompletedDate().trim(), vo.getDate1().trim(), vo.getDate2().trim(), vo.getProjectName().trim(), vo.getResultType().trim());
+		if (list == null || list.size() == 0) {
+			return "";
 		}
-		
-		if (!StringUtils.isNullOrEmpty(vo.getResultType().trim())) {
-			info.setResultType(vo.getResultType());
-		}
-		
-		if (!StringUtils.isNullOrEmpty(vo.getProjectName().trim())) {
-			info.setProjectName(vo.getProjectName());
-		}
-		Example<KjcgJbxxInfo> example = Example.of(info);
-		List<KjcgJbxxInfo> list = kjcgJbxxDao.findAll(example);
 		List<File> fileList = new ArrayList<>();
 		for (KjcgJbxxInfo kjcgJbxxInfo : list) {
 			String fileName = path + "/" + kjcgJbxxInfo.getResultId() + ".xml";

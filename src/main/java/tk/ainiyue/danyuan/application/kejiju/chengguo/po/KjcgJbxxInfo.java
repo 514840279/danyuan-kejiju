@@ -218,17 +218,4 @@ public class KjcgJbxxInfo implements Serializable {
 		this.resultType = resultType;
 	}
 	
-	/** 
-	*  方法名 ： toString
-	*  功    能 ： TODO(这里用一句话描述这个方法的作用)  
-	*  参    数 ： @return  
-	*  参    考 ： @see java.lang.Object#toString()  
-	*  作    者 ： Administrator  
-	*/
-	
-	@Override
-	public String toString() {
-		return "KjcgJbxxInfo [awards=" + awards + ", cdc=" + cdc + ", completedDate=" + completedDate + ", completedOrganization=" + completedOrganization + ", completedby=" + completedby + ", createTime=" + createTime + ", createUser=" + createUser + ", discipline=" + discipline + ", industry=" + industry + ", keyword=" + keyword + ", otherCode=" + otherCode + ", projectId=" + projectId + ", projectName=" + projectName + ", resultAbstract=" + resultAbstract + ", resultId=" + resultId + ", resultLinks=" + resultLinks + ", resultTitle=" + resultTitle + ", resultType=" + resultType + "]";
-	}
-	
 }

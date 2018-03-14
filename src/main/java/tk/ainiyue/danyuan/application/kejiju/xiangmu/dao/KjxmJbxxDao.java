@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.po.KjxmJbxxInfo;
@@ -80,5 +81,23 @@ public interface KjxmJbxxDao extends JpaRepository<KjxmJbxxInfo, Serializable> {
 	*/
 	@Query("SELECT t.projectDomain as projectDomain,COUNT(1) as numbers  FROM KjxmJbxxInfo t GROUP BY t.projectDomain")
 	List<Object[]> statistics();
+	
+	/**  
+	*  方法名： findAllByMulitity  
+	*  功    能： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数： @param projectName
+	*  参    数： @param projectDomain
+	*  参    数： @param approvalYear
+	*  参    数： @param region
+	*  参    数： @param projectType
+	*  参    数： @param date1
+	*  参    数： @param date2
+	*  参    数： @return 
+	*  返    回： List<KjxmJbxxInfo>  
+	*  作    者 ： wang  
+	*  @throws  
+	*/
+	@Query("SELECT t  FROM KjxmJbxxInfo t  " + " where t.projectName like CONCAT('%',:project,'%') " + " and t.projectDomain like CONCAT('%',:projectDomain,'%') " + " and t.approvalYear  like CONCAT('%',:approvalYear,'%') " + " and t.region like CONCAT('%',:region,'%') " + " and t.projectType like CONCAT('%',:projectType,'%') " + " and TO_DAYS(t.createTime) - TO_DAYS(:date1) > 0 and TO_DAYS(:date2) - TO_DAYS(t.createTime) > 0")
+	List<KjxmJbxxInfo> findAllByMulitity(@Param("project") String projectName, @Param("projectDomain") String projectDomain, @Param("approvalYear") String approvalYear, @Param("region") String region, @Param("projectType") String projectType, @Param("date1") String date1, @Param("date2") String date2);
 	
 }

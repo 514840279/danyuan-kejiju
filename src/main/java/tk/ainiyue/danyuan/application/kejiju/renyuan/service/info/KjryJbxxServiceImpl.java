@@ -17,7 +17,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
-import com.mysql.jdbc.StringUtils;
 import com.thoughtworks.xstream.XStream;
 
 import tk.ainiyue.danyuan.application.common.ZipUtils;
@@ -187,21 +186,10 @@ public class KjryJbxxServiceImpl implements KjryJbxxService {
 		if (!filepath.exists()) {
 			filepath.mkdirs();
 		}
-		KjryJbxxInfo info = new KjryJbxxInfo();
-		if (!StringUtils.isNullOrEmpty(vo.getName())) {
-			info.setName(vo.getName().trim());
+		List<KjryJbxxInfo> list = kjryJbxxDao.findAllByMulitity(vo.getDate1().trim(), vo.getDate2().trim(), vo.getDegree().trim(), vo.getPorfessionalTitle().trim(), vo.getResearchDirection().trim(), vo.getName().trim());
+		if (list == null || list.size() == 0) {
+			return "";
 		}
-		if (!StringUtils.isNullOrEmpty(vo.getDegree())) {
-			info.setDegree(vo.getDegree().trim());
-		}
-		if (!StringUtils.isNullOrEmpty(vo.getPorfessionalTitle())) {
-			info.setPorfessionalTitle(vo.getPorfessionalTitle().trim());
-		}
-		if (!StringUtils.isNullOrEmpty(vo.getResearchDirection())) {
-			info.setResearchDirection(vo.getResearchDirection().trim());
-		}
-		Example<KjryJbxxInfo> example = Example.of(info);
-		List<KjryJbxxInfo> list = kjryJbxxDao.findAll(example);
 		List<File> fileList = new ArrayList<>();
 		for (KjryJbxxInfo kjryJbxxInfo : list) {
 			

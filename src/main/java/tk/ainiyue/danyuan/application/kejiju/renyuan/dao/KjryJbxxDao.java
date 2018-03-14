@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import tk.ainiyue.danyuan.application.kejiju.renyuan.po.KjryJbxxInfo;
@@ -69,5 +70,22 @@ public interface KjryJbxxDao extends JpaRepository<KjryJbxxInfo, Serializable> {
 	*/
 	@Query("SELECT t.honorary as honorary,COUNT(1) as numbers  FROM KjryJbxxInfo t GROUP BY t.honorary")
 	List<Object[]> statistics();
+	
+	/**  
+	*  方法名： findAllByMulitity  
+	*  功    能： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数： @param date1
+	*  参    数： @param date2
+	*  参    数： @param degree
+	*  参    数： @param porfessionalTitle
+	*  参    数： @param researchDirection
+	*  参    数： @param name
+	*  参    数： @return 
+	*  返    回： List<KjryJbxxInfo>  
+	*  作    者 ： wang  
+	*  @throws  
+	*/
+	@Query("SELECT t  FROM KjryJbxxInfo t  " + " where t.name like CONCAT('%',:name,'%') " + " and t.degree like CONCAT('%',:degree,'%') and t.porfessionalTitle  like CONCAT('%',:porfessionalTitle,'%') and t.researchDirection like CONCAT('%',:researchDirection,'%')  and TO_DAYS(t.createTime) - TO_DAYS(:date1) > 0 and TO_DAYS(:date2) - TO_DAYS(t.createTime) > 0")
+	List<KjryJbxxInfo> findAllByMulitity(@Param("date1") String date1, @Param("date2") String date2, @Param("degree") String degree, @Param("porfessionalTitle") String porfessionalTitle, @Param("researchDirection") String researchDirection, @Param("name") String name);
 	
 }

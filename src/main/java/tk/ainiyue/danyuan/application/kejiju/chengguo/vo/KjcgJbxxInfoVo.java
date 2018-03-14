@@ -18,6 +18,56 @@ public class KjcgJbxxInfoVo extends Pagination<KjcgJbxxInfo> {
 	private String	projectName;
 	private String	resultType;
 	
+	private String	date1;
+	private String	date2;
+	
+	/** 
+	*  方法名 ： toString
+	*  功    能 ： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数 ： @return  
+	*  参    考 ： @see java.lang.Object#toString()  
+	*  作    者 ： wang  
+	*/
+	
+	@Override
+	public String toString() {
+		return "KjcgJbxxInfoVo [completedDate=" + completedDate + ", projectName=" + projectName + ", resultType=" + resultType + ", date1=" + date1 + ", date2=" + date2 + "]";
+	}
+	
+	/**  
+	 *  方法名 ： getDate1 
+	 *  功    能 ： 返回变量 date1 的值  
+	 *  @return: String 
+	 */
+	public String getDate1() {
+		return date1;
+	}
+	
+	/**  
+	 *  方法名 ： setDate1 
+	 *  功    能 ： 设置变量 date1 的值
+	 */
+	public void setDate1(String date1) {
+		this.date1 = date1;
+	}
+	
+	/**  
+	 *  方法名 ： getDate2 
+	 *  功    能 ： 返回变量 date2 的值  
+	 *  @return: String 
+	 */
+	public String getDate2() {
+		return date2;
+	}
+	
+	/**  
+	 *  方法名 ： setDate2 
+	 *  功    能 ： 设置变量 date2 的值
+	 */
+	public void setDate2(String date2) {
+		this.date2 = date2;
+	}
+	
 	/**  
 	 *  方法名 ： getCompletedDate 
 	 *  功    能 ： 返回变量 completedDate 的值  

@@ -11,7 +11,9 @@ $(function() {
 		var param={
 				projectName:$("#output_kejiju_chengguo_projectName1").val(),
 				resultType:search_kejiju_chengguo_resultType3,
-				completedDate:search_kejiju_chengguo_completedDate3
+				completedDate:search_kejiju_chengguo_completedDate3,
+				date1:$("#output_kejiju_chengguo_createTime1").val()==""?'1900-12-31':$("#output_kejiju_chengguo_createTime1").val(),
+				date2:$("#output_kejiju_chengguo_createTime2").val()==""?'3000-12-31':$("#output_kejiju_chengguo_createTime2").val(),
 		}
 		ajaxPost(url, param,forDownload);
 		
@@ -19,6 +21,10 @@ $(function() {
 });
 
 function forDownload(result){
+	if(result.fileName==""){
+		alert("没有数据");
+		return;
+	}
 	var url ="/sysFileOutput/testDownload";
 	var $eleForm = $("<form method='post'><input type='input' name='path' value='"+result.fileName+"'/></form>");
     $eleForm.attr("action",url);

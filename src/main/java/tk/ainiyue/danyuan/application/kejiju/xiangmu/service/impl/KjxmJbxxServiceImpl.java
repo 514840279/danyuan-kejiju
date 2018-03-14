@@ -16,7 +16,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
-import com.mysql.jdbc.StringUtils;
 import com.thoughtworks.xstream.XStream;
 
 import tk.ainiyue.danyuan.application.common.ZipUtils;
@@ -207,24 +206,10 @@ public class KjxmJbxxServiceImpl implements KjxmJbxxService {
 		if (!filepath.exists()) {
 			filepath.mkdirs();
 		}
-		KjxmJbxxInfo info = new KjxmJbxxInfo();
-		if (!StringUtils.isNullOrEmpty(vo.getProjectName())) {
-			info.setProjectName(vo.getProjectName().trim());
+		List<KjxmJbxxInfo> list = kjxmJbxxDao.findAllByMulitity(vo.getProjectName().trim(), vo.getProjectDomain().trim(), vo.getApprovalYear().trim(), vo.getRegion().trim(), vo.getProjectType().trim(), vo.getDate1().trim(), vo.getDate2().trim());
+		if (list == null || list.size() == 0) {
+			return "";
 		}
-		if (!StringUtils.isNullOrEmpty(vo.getProjectDomain().trim())) {
-			info.setProjectDomain(vo.getProjectDomain().trim());
-		}
-		if (!StringUtils.isNullOrEmpty(vo.getApprovalYear().trim())) {
-			info.setApprovalYear(vo.getApprovalYear().trim());
-		}
-		if (!StringUtils.isNullOrEmpty(vo.getRegion().trim())) {
-			info.setRegion(vo.getRegion().trim());
-		}
-		if (!StringUtils.isNullOrEmpty(vo.getProjectType().trim())) {
-			info.setProjectType(vo.getProjectType().trim());
-		}
-		Example<KjxmJbxxInfo> example = Example.of(info);
-		List<KjxmJbxxInfo> list = kjxmJbxxDao.findAll(example);
 		List<File> fileList = new ArrayList<>();
 		for (KjxmJbxxInfo kjxmJbxxInfo : list) {
 			

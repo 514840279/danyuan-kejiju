@@ -19,6 +19,42 @@ public class KjxmJbxxInfoVo extends Pagination<KjxmJbxxInfo> {
 	public String	projectType;
 	public String	region;
 	public String	approvalYear;
+	private String	date1;
+	private String	date2;
+	
+	/**  
+	 *  方法名 ： getDate1 
+	 *  功    能 ： 返回变量 date1 的值  
+	 *  @return: String 
+	 */
+	public String getDate1() {
+		return date1;
+	}
+	
+	/**  
+	 *  方法名 ： setDate1 
+	 *  功    能 ： 设置变量 date1 的值
+	 */
+	public void setDate1(String date1) {
+		this.date1 = date1;
+	}
+	
+	/**  
+	 *  方法名 ： getDate2 
+	 *  功    能 ： 返回变量 date2 的值  
+	 *  @return: String 
+	 */
+	public String getDate2() {
+		return date2;
+	}
+	
+	/**  
+	 *  方法名 ： setDate2 
+	 *  功    能 ： 设置变量 date2 的值
+	 */
+	public void setDate2(String date2) {
+		this.date2 = date2;
+	}
 	
 	/**  
 	 *  方法名 ： getProjectName 

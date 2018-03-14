@@ -93,7 +93,7 @@ public class SysFileOutput {
 		
 	}
 	
-	@ApiOperation(value = "保存文件信息", notes = "")
+	@ApiOperation(value = "导出科技成果包", notes = "")
 	@RequestMapping(path = "/forDownloadChengguo", method = RequestMethod.POST)
 	public Map<String, String> forDownloadChengguo(@RequestBody KjcgJbxxInfoVo vo) {
 		logger.info("forDownloadChengguo", SysFileOutput.class);
@@ -115,7 +115,7 @@ public class SysFileOutput {
 		return map;
 	}
 	
-	@ApiOperation(value = "保存文件信息", notes = "")
+	@ApiOperation(value = "导出科技人员信息", notes = "")
 	@RequestMapping(path = "/forDownloadRenyuan", method = RequestMethod.POST)
 	public Map<String, String> forDownloadRenyuan(@RequestBody KjryJbxxInfoVo vo) {
 		logger.info("forDownloadRenyuan", SysFileOutput.class);
@@ -135,7 +135,7 @@ public class SysFileOutput {
 		return map;
 	}
 	
-	@ApiOperation(value = "保存文件信息", notes = "")
+	@ApiOperation(value = "导出项目信息", notes = "")
 	@RequestMapping(path = "/forDownloadXiangmu", method = RequestMethod.POST)
 	public Map<String, String> forDownloadXiangmu(@RequestBody KjxmJbxxInfoVo vo) {
 		logger.info("forDownloadXiangmu", SysFileOutput.class);
