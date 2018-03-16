@@ -234,10 +234,20 @@ public class KjryJbxxServiceImpl implements KjryJbxxService {
 			xstream.alias("KjryXspsInfo", KjryXspsInfo.class);
 			// 忽略
 			xstream.omitField(KjryGzllInfo.class, "kjryJbxxInfo");//把字段节点隐藏
+			xstream.omitField(KjryGzllInfo.class, "createTime");//把字段节点隐藏
+			xstream.omitField(KjryGzllInfo.class, "createUser");//把字段节点隐藏
 			// 忽略
 			xstream.omitField(KjryJyxxInfo.class, "kjryJbxxInfo");//把字段节点隐藏
+			xstream.omitField(KjryJyxxInfo.class, "createTime");//把字段节点隐藏
+			xstream.omitField(KjryJyxxInfo.class, "createUser");//把字段节点隐藏
+			
 			xstream.omitField(KjryXsjzInfo.class, "kjryJbxxInfo");//把字段节点隐藏
+			xstream.omitField(KjryXsjzInfo.class, "createTime");//把字段节点隐藏
+			xstream.omitField(KjryXsjzInfo.class, "createUser");//把字段节点隐藏
+			
 			xstream.omitField(KjryXspsInfo.class, "kjryJbxxInfo");//把字段节点隐藏
+			xstream.omitField(KjryXspsInfo.class, "createTime");//把字段节点隐藏
+			xstream.omitField(KjryXspsInfo.class, "createUser");//把字段节点隐藏
 			//序列化
 			String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + xstream.toXML(kjryJbxxInfo);
 			//			System.err.println(xml);

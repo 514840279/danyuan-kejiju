@@ -89,6 +89,7 @@ public class SysFileOutput {
 					e.printStackTrace();
 				}
 			}
+			file.delete();
 		}
 		
 	}
@@ -105,8 +106,6 @@ public class SysFileOutput {
 		try {
 			fileName = kjcgJbxxService.outputFile(vo, path);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			message = e.toString();
 		}
 		Map<String, String> map = new HashMap<>();
@@ -127,7 +126,7 @@ public class SysFileOutput {
 		try {
 			fileName = KjryJbxxService.outputFile(vo, path);
 		} catch (IOException e) {
-			e.printStackTrace();
+			message = e.toString();
 		}
 		Map<String, String> map = new HashMap<>();
 		map.put("fileName", fileName);
@@ -147,7 +146,7 @@ public class SysFileOutput {
 		try {
 			fileName = kjxmJbxxService.outputFile(vo, path);
 		} catch (IOException e) {
-			e.printStackTrace();
+			message = e.toString();
 		}
 		Map<String, String> map = new HashMap<>();
 		map.put("fileName", fileName);

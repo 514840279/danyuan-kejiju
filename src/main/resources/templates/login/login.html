@@ -15,18 +15,22 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="/dist/css/AdminLTE.min.css" />
 <style type="text/css">
-html:{
-height:100%;
-}
+
 .bg{ 
 background-image:url("/dist/img/login.jpg"); 
-background-position:center center; 
+background-position:center 15px; 
 background-size:100%;
  opacity: 0.85;
 } 
 .logo{
 font-family: sans-serif;
-color:#7592a7;
+
+opacity: 0.85;
+}
+
+.logo a{
+font-size: 40px;
+color:#00000;
 }
 
 
@@ -42,21 +46,12 @@ color:#7592a7;
 <body class="hold-transition login-page bg" id="bg" >
 	<div class="login-box">
 		<div class="login-logo logo">
-			    <a href="#"><b>大连科技局</b></a>
+		<br/><br/>
+			    <a href="#"><b>大连科技局应用平台</b></a>
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
 			<p class="login-box-msg">登录用户</p>
-<!-- 			<p class="login-box-msg">测试账号： -->
-<!-- 			 	<span style="color: red">admin/admin</span> 	 -->
-<!-- 			 	<span style="color: green">user/user </span>	 -->
-<!-- 			 	<span style="color: blue">test/test</span> -->
-			 	
-<!-- 			 	<span style="color: red">ke1/ke1</span> 	 -->
-<!-- 			 	<span style="color: green">ke2/ke2 </span>	 -->
-<!-- 			 	<span style="color: blue">ke3/ke3</span> -->
-			
-<!-- 			</p> -->
 			<form action="/login" method="post">
 				<div class="form-group has-feedback">
 					<input type="text" class="form-control" placeholder="Full name" name="username" /> <span class="glyphicon glyphicon-user form-control-feedback"></span>

@@ -58,7 +58,7 @@ public class SysFileUploadController {
 		/** 获取文件的后缀* */
 		String filename = multipartFile.getOriginalFilename();
 		System.out.println(filename);
-		InputStream inputStream;
+		InputStream inputStream = null;
 		
 		try {
 			inputStream = multipartFile.getInputStream();
@@ -74,11 +74,12 @@ public class SysFileUploadController {
 			while ((inputStream.read(b)) != -1) {
 				fos.write(b);
 			}
-			inputStream.close();
 			fos.close();
+			inputStream.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		Map<String, Object> result = new HashMap<>();
 		result.put("path", path);
 		return result;
@@ -89,6 +90,8 @@ public class SysFileUploadController {
 	public String save(@RequestBody SysFileUploadInfo info) {
 		logger.info("save", SysFileUploadController.class);
 		info.setUuid(UUID.randomUUID().toString());
+		String message = sysFileUploadService.importSysFileUploadInfo(info);
+		info.setMessage(message);
 		sysFileUploadService.save(info);
 		return "1";
 	}

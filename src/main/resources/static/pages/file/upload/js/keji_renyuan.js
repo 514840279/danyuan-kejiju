@@ -95,7 +95,7 @@ function reset(){
 			{title : '全选',checkbox : true,align : 'center',valign : 'middle'}, 
 //			{title : 'id',field : 'uuid',align : 'center',sortable : true,valign : 'middle'},
 			{title : '文件名',field : 'name',sortable : true,align : 'left',valign : 'middle'}, 
-			{title : '大小',field : 'size',align : 'center',sortable : true,valign : 'middle',formatter:function(size){return Math.round(size/1024/1024*100)/100 +"Mb"}},
+			{title : '大小',field : 'size',align : 'center',sortable : true,valign : 'middle',formatter:function(size){return {return size +"B"}},
 			{title : '上传',field : 'createUser',align : 'center',sortable : true,valign : 'middle'}, 
 			{title : '记录时间',field : 'createTime',align : 'center',sortable : true,valign : 'middle'}, 
 			{title : '标记',field : 'deleteFlag',sortable : true,align : 'center',valign : 'middle'} ,

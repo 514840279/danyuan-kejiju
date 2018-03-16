@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.thoughtworks.xstream.XStream;
 
 import tk.ainiyue.danyuan.application.common.ZipUtils;
+import tk.ainiyue.danyuan.application.kejiju.renyuan.po.KjryXspsInfo;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.dao.KjxmDwxxDao;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.dao.KjxmJbxxDao;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.dao.KjxmRyxxDao;
@@ -240,8 +241,12 @@ public class KjxmJbxxServiceImpl implements KjxmJbxxService {
 			xstream.alias("KjxmRyxxInfo", KjxmRyxxInfo.class);
 			// 忽略
 			xstream.omitField(KjxmDwxxInfo.class, "kjxmJbxxInfo");//把字段节点隐藏
+			xstream.omitField(KjxmDwxxInfo.class, "createTime");//把字段节点隐藏
+			xstream.omitField(KjxmDwxxInfo.class, "createUser");//把字段节点隐藏
 			// 忽略
 			xstream.omitField(KjxmRyxxInfo.class, "kjxmJbxxInfo");//把字段节点隐藏
+			xstream.omitField(KjxmRyxxInfo.class, "createTime");//把字段节点隐藏
+			xstream.omitField(KjxmRyxxInfo.class, "createUser");//把字段节点隐藏
 			//序列化
 			String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + xstream.toXML(kjxmJbxxInfo);
 			//			System.err.println(xml);
