@@ -23,6 +23,7 @@ import io.swagger.annotations.ApiOperation;
 import tk.ainiyue.danyuan.application.dic.po.KjDicCglx;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.po.KjcgJbxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.service.KjcgJbxxService;
+import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.Flare;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.KjcgJbxxCount;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.KjcgJbxxInfoVo;
 
@@ -149,6 +150,14 @@ public class KjcgJbxxController {
 	public List<KjcgJbxxCount> statistics() {
 		logger.info("statistics", KjcgJbxxController.class);
 		return kjcgJbxxService.statistics();
+	}
+	
+	@ApiOperation(value = "统计信息", notes = "")
+	@RequestMapping(path = "/flare", method = RequestMethod.POST)
+	@ResponseBody
+	public Flare flare() {
+		logger.info("flare", KjcgJbxxController.class);
+		return kjcgJbxxService.flare();
 	}
 	
 }

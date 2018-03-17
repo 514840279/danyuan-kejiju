@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -24,6 +25,7 @@ import tk.ainiyue.danyuan.application.dic.po.KjDicCglx;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.dao.KjcgJbxxDao;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.po.KjcgJbxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.service.KjcgJbxxService;
+import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.Flare;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.KjcgJbxxCount;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.KjcgJbxxInfoVo;
 
@@ -209,6 +211,42 @@ public class KjcgJbxxServiceImpl implements KjcgJbxxService {
 		}
 		filepath.delete();
 		return FileName;
+	}
+	
+	/** 
+	*  方法名 ： flare
+	*  功    能 ： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数 ： @return  
+	*  参    考 ： @see tk.ainiyue.danyuan.application.kejiju.chengguo.service.KjcgJbxxService#flare()  
+	*  作    者 ： wang  
+	*/
+	
+	@Override
+	public Flare flare() {
+		Flare flare = new Flare();
+		Long longs = kjcgJbxxDao.count();
+		flare.setName("总量");
+		flare.setValue(Integer.parseInt(longs.toString()));
+		List<Map<String, Object>> listc = kjcgJbxxDao.countGroupByCreateTime();
+		List<Flare> listcl = new ArrayList<>();
+		for (Map<String, Object> flare2 : listc) {
+			Flare flarec = new Flare();
+			String dates = (String) flare2.get("name");
+			flarec.setName(dates);
+			flarec.setValue(Integer.parseInt(flare2.get("value").toString()));
+			List<Map<String, Object>> lists = kjcgJbxxDao.countGroupByCreateTimeAnd(dates);
+			List<Flare> listsl = new ArrayList<>();
+			for (Map<String, Object> flare3 : lists) {
+				Flare flares = new Flare();
+				flares.setName((String) flare3.get("name"));
+				flares.setValue(Integer.parseInt(flare3.get("value").toString()));
+				listsl.add(flares);
+			}
+			flarec.setChildren(listsl);
+			listcl.add(flarec);
+		}
+		flare.setChildren(listcl);
+		return flare;
 	}
 	
 }

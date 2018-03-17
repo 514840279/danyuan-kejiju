@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.Flare;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.po.KjxmJbxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.vo.KjxmJbxxCount;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.vo.KjxmJbxxInfoVo;
@@ -127,5 +128,15 @@ public interface KjxmJbxxService {
 	*  @throws  
 	*/
 	String outputFile(KjxmJbxxInfoVo vo, String path) throws IOException;
+	
+	/**  
+	*  方法名： flare  
+	*  功    能： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数： @return 
+	*  返    回： Flare  
+	*  作    者 ： wang  
+	*  @throws  
+	*/
+	Flare flare();
 	
 }

@@ -2,6 +2,11 @@ $(function() {
 	// 重载
 	var url = "/kjcgJbxxInfo/statistics";
 	ajaxPost(url, null, findChengguoStatisticsSuccess, 5000, findError);
+	
+	
+	// 重载
+	var url = "/kjcgJbxxInfo/flare";
+	ajaxPost(url, null, findChengguoflareSuccess, 5000, findError);
 })
 function findChengguoStatisticsSuccess(result) {
 	xAxis_data = [];
@@ -57,4 +62,58 @@ function echart_init(xAxis_data, series_data, result) {
 	    }, ],
 	    data : result,
 	});
+}
+
+
+
+function findChengguoflareSuccess(result) {
+	console.log(result);
+	// 基于准备好的dom，初始化echarts实例
+	var myChart = echarts.init(document.getElementById('chengguo_chart_tree_id'));
+	myChart.setOption(option = {
+	        tooltip: {
+	            trigger: 'item',
+	            triggerOn: 'mousemove'
+	        },
+	        series: [
+	            {
+	                type: 'tree',
+	                data: [result],
+	                top: '18%',
+	                bottom: '14%',
+	                layout: 'radial',
+	                symbol: 'emptyCircle',
+	                symbolSize: 7,
+	                initialTreeDepth: 3,
+	                animationDurationUpdate: 750
+
+	            }
+	        ]
+	    });
+	
+	var data_tree = [];
+	rdata(result,data_tree);
+	
+	
+	console.log(data_tree);
+	// bootstrap table
+	$('#kejiju_chengguo_chart_data_tree_datagrid').bootstrapTable({
+		columns : [ {
+	        title : '项目',
+	        field : 'name',
+	    }, {
+	        title : '数量',
+	        field : 'number',
+	    }, ],
+	    data : data_tree,
+	});
+}
+
+function rdata(result,data_tree){
+	data_tree.push({"name":result.name,"number":result.value})
+	if(result.children!=null){
+		$.each(result.children,function(index,val){
+			rdata(val,data_tree)
+		})
+	}
 }

@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.thoughtworks.xstream.XStream;
 
 import tk.ainiyue.danyuan.application.common.ZipUtils;
+import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.Flare;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.dao.KjxmDwxxDao;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.dao.KjxmJbxxDao;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.dao.KjxmRyxxDao;
@@ -267,5 +269,41 @@ public class KjxmJbxxServiceImpl implements KjxmJbxxService {
 		}
 		filepath.delete();
 		return FileName;
+	}
+	
+	/** 
+	*  方法名 ： flare
+	*  功    能 ： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数 ： @return  
+	*  参    考 ： @see tk.ainiyue.danyuan.application.kejiju.xiangmu.service.KjxmJbxxService#flare()  
+	*  作    者 ： wang  
+	*/
+	
+	@Override
+	public Flare flare() {
+		Flare flare = new Flare();
+		Long longs = kjxmJbxxDao.count();
+		flare.setName("总量");
+		flare.setValue(Integer.parseInt(longs.toString()));
+		List<Map<String, Object>> listc = kjxmJbxxDao.countGroupByCreateTime();
+		List<Flare> listcl = new ArrayList<>();
+		for (Map<String, Object> flare2 : listc) {
+			Flare flarec = new Flare();
+			String dates = (String) flare2.get("name");
+			flarec.setName(dates);
+			flarec.setValue(Integer.parseInt(flare2.get("value").toString()));
+			List<Map<String, Object>> lists = kjxmJbxxDao.countGroupByCreateTimeAnd(dates);
+			List<Flare> listsl = new ArrayList<>();
+			for (Map<String, Object> flare3 : lists) {
+				Flare flares = new Flare();
+				flares.setName((String) flare3.get("name"));
+				flares.setValue(Integer.parseInt(flare3.get("value").toString()));
+				listsl.add(flares);
+			}
+			flarec.setChildren(listsl);
+			listcl.add(flarec);
+		}
+		flare.setChildren(listcl);
+		return flare;
 	}
 }

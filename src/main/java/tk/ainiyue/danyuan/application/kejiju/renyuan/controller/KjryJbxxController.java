@@ -20,6 +20,7 @@ import com.mysql.jdbc.StringUtils;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import tk.ainiyue.danyuan.application.kejiju.chengguo.vo.Flare;
 import tk.ainiyue.danyuan.application.kejiju.renyuan.po.KjryJbxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.renyuan.service.KjryJbxxService;
 import tk.ainiyue.danyuan.application.kejiju.renyuan.vo.KjryJbxxCount;
@@ -159,6 +160,14 @@ public class KjryJbxxController {
 	public List<KjryJbxxCount> statistics() {
 		logger.info("statistics", KjryJbxxController.class);
 		return KjryJbxxService.statistics();
+	}
+	
+	@ApiOperation(value = "统计信息", notes = "")
+	@RequestMapping(path = "/flare", method = RequestMethod.POST)
+	@ResponseBody
+	public Flare flare() {
+		logger.info("flare", KjryJbxxController.class);
+		return KjryJbxxService.flare();
 	}
 	
 }

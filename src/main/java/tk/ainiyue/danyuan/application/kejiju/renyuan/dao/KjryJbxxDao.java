@@ -2,6 +2,7 @@ package tk.ainiyue.danyuan.application.kejiju.renyuan.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -87,5 +88,28 @@ public interface KjryJbxxDao extends JpaRepository<KjryJbxxInfo, Serializable> {
 	*/
 	@Query("SELECT t  FROM KjryJbxxInfo t  " + " where t.name like CONCAT('%',:name,'%') " + " and t.degree like CONCAT('%',:degree,'%') and t.porfessionalTitle  like CONCAT('%',:porfessionalTitle,'%') and t.researchDirection like CONCAT('%',:researchDirection,'%')  and TO_DAYS(t.createTime) - TO_DAYS(:date1) > 0 and TO_DAYS(:date2) - TO_DAYS(t.createTime) > 0")
 	List<KjryJbxxInfo> findAllByMulitity(@Param("date1") String date1, @Param("date2") String date2, @Param("degree") String degree, @Param("porfessionalTitle") String porfessionalTitle, @Param("researchDirection") String researchDirection, @Param("name") String name);
+	
+	/**  
+	*  方法名： countGroupByCreateTime  
+	*  功    能： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数： @return 
+	*  返    回： List<Map<String,Object>>  
+	*  作    者 ： wang  
+	*  @throws  
+	*/
+	@Query("SELECT DATE_FORMAT(t.createTime,'%Y-%m') as name ,count(1 ) as value  FROM KjryJbxxInfo t  group by  DATE_FORMAT(t.createTime,'%Y-%m')")
+	List<Map<String, Object>> countGroupByCreateTime();
+	
+	/**  
+	*  方法名： countGroupByCreateTimeAnd  
+	*  功    能： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数： @param dates
+	*  参    数： @return 
+	*  返    回： List<Map<String,Object>>  
+	*  作    者 ： wang  
+	*  @throws  
+	*/
+	@Query("SELECT  t.field as name ,count(1 ) as value  FROM KjryJbxxInfo t where DATE_FORMAT(t.createTime,'%Y-%m') =:dates  group by  t.field")
+	List<Map<String, Object>> countGroupByCreateTimeAnd(@Param("dates") String dates);
 	
 }
