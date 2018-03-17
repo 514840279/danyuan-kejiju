@@ -103,6 +103,14 @@ function reset(){
 			{title : '分类',field : 'discription',sortable : true,align : 'center',valign : 'middle'} ,
 			{title : '消息',field : 'message',sortable : true,align : 'center',valign : 'middle'} ,
 		],
+		rowStyle: function (row, index) {
+			if(row.message !="成功导入"){
+				return { classes: 'danger' };
+				
+			}else{
+				return {};
+			}
+        },   
 		responseHandler: function(result){  // 成功时执行
 			return {rows:result.content,total:result.totalElements};
 		},

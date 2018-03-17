@@ -1,6 +1,7 @@
 package tk.ainiyue.danyuan.application.file.upload.service.impl;
 
 import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.File;
@@ -8,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -144,6 +146,9 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 	*  @throws  
 	*/
 	private String analyzeXiangmu(String xml, String username) {
+		if (xml.indexOf("KjxmJbxxInfo") < 0) {
+			return "文件内容无法解析";
+		}
 		String message = null;
 		System.err.println(xml);
 		XStream xStream = new XStream();
@@ -210,8 +215,8 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 			info2.setKjxmRyxxInfos(listxsj);
 			
 			kjxmJbxxDao.save(info2);
-			message = "成功";
-		} catch (IllegalAccessException e) {
+			message = "成功导入";
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | IntrospectionException e) {
 			message = e.toString();
 		}
 		return message;
@@ -229,7 +234,10 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 	*/
 	private String analyzeRenyuan(String xml, String username) {
 		String message = null;
-		System.err.println(xml);
+		if (xml.indexOf("kjryJbxxInfo") < 0) {
+			return "文件内容无法解析";
+		}
+		
 		XStream xstream = new XStream();
 		xstream.alias("kjryJbxxInfo", KjryJbxxInfo.class);
 		xstream.alias("KjryGzllInfo", KjryGzllInfo.class);
@@ -239,6 +247,7 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 		
 		try {
 			Object obj = xstream.fromXML(xml);
+			System.err.println(obj.getClass().equals(KjryJbxxInfo.class));
 			Map<String, Object> map = objectToMap(obj);
 			KjryJbxxInfo info2 = new KjryJbxxInfo();
 			transMap2Bean(map, info2);
@@ -317,8 +326,8 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 			}
 			info2.setKjryXspsInfos(listxsp);
 			kjryJbxxDao.save(info2);
-			message = "成功";
-		} catch (IllegalAccessException e) {
+			message = "成功导入";
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | IntrospectionException e) {
 			message = e.toString();
 		}
 		return message;
@@ -352,28 +361,21 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 	}
 	
 	// Map --> Bean 1: 利用Introspector,PropertyDescriptor实现 Map --> Bean
-	public static void transMap2Bean(Map<String, Object> map, Object t) {
+	public static void transMap2Bean(Map<String, Object> map, Object t) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, IntrospectionException {
+		BeanInfo beanInfo = Introspector.getBeanInfo(t.getClass());
+		PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
 		
-		try {
-			BeanInfo beanInfo = Introspector.getBeanInfo(t.getClass());
-			PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+		for (PropertyDescriptor property : propertyDescriptors) {
+			String key = property.getName();
 			
-			for (PropertyDescriptor property : propertyDescriptors) {
-				String key = property.getName();
-				
-				if (map.containsKey(key)) {
-					Object value = map.get(key);
-					// 得到property对应的setter方法
-					Method setter = property.getWriteMethod();
-					setter.invoke(t, value);
-				}
-				
+			if (map.containsKey(key)) {
+				Object value = map.get(key);
+				// 得到property对应的setter方法
+				Method setter = property.getWriteMethod();
+				setter.invoke(t, value);
 			}
 			
-		} catch (Exception e) {
 		}
-		
-		return;
 		
 	}
 	
@@ -389,6 +391,9 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 	*/
 	private String analyzeChengguo(String xml, String username) {
 		String message = null;
+		if (xml.indexOf("KjcgJbxxInfo") < 0) {
+			return "文件内容无法解析";
+		}
 		System.err.println(xml);
 		XStream xStream = new XStream();
 		xStream.alias("KjcgJbxxInfo", KjcgJbxxInfo.class);
@@ -403,8 +408,8 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 			System.err.println(info2.toString());
 			info2.setCreateUser(username);
 			kjcgJbxxDao.save(info2);
-			message = "成功";
-		} catch (IllegalAccessException e) {
+			message = "成功导入";
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | IntrospectionException e) {
 			message = e.toString();
 		}
 		return message;
