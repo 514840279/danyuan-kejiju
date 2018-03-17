@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import com.thoughtworks.xstream.XStream;
 
 import tk.ainiyue.danyuan.application.common.ZipUtils;
-import tk.ainiyue.danyuan.application.kejiju.renyuan.po.KjryXspsInfo;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.dao.KjxmDwxxDao;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.dao.KjxmJbxxDao;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.dao.KjxmRyxxDao;

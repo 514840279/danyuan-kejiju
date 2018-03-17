@@ -221,4 +221,17 @@ public class KjryJyxxInfo implements Serializable {
 		this.kjryJbxxInfo = kjryJbxxInfo;
 	}
 	
+	/** 
+	*  方法名 ： toString
+	*  功    能 ： TODO(这里用一句话描述这个方法的作用)  
+	*  参    数 ： @return  
+	*  参    考 ： @see java.lang.Object#toString()  
+	*  作    者 ： wang  
+	*/
+	
+	@Override
+	public String toString() {
+		return "KjryJyxxInfo [uuid=" + uuid + ", country=" + country + ", createTime=" + createTime + ", createUser=" + createUser + ", degree=" + degree + ", education=" + education + ", endTime=" + endTime + ", major=" + major + ", schoolName=" + schoolName + ", startTime=" + startTime + ", teacher=" + teacher + ", training=" + training + ", universityCode=" + universityCode + ", universityUscc=" + universityUscc + ", personId=" + personId + ", kjryJbxxInfo=" + kjryJbxxInfo + "]";
+	}
+	
 }
