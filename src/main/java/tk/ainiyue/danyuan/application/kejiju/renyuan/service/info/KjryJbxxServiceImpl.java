@@ -234,19 +234,24 @@ public class KjryJbxxServiceImpl implements KjryJbxxService {
 			xstream.alias("KjryJyxxInfo", KjryJyxxInfo.class);
 			xstream.alias("KjryXsjzInfo", KjryXsjzInfo.class);
 			xstream.alias("KjryXspsInfo", KjryXspsInfo.class);
+			xstream.omitField(KjryJbxxInfo.class, "personId");//把字段节点隐藏
 			// 忽略
+			xstream.omitField(KjryGzllInfo.class, "uuid");//把字段节点隐藏
 			xstream.omitField(KjryGzllInfo.class, "kjryJbxxInfo");//把字段节点隐藏
 			xstream.omitField(KjryGzllInfo.class, "createTime");//把字段节点隐藏
 			xstream.omitField(KjryGzllInfo.class, "createUser");//把字段节点隐藏
 			// 忽略
+			xstream.omitField(KjryJyxxInfo.class, "uuid");//把字段节点隐藏
 			xstream.omitField(KjryJyxxInfo.class, "kjryJbxxInfo");//把字段节点隐藏
 			xstream.omitField(KjryJyxxInfo.class, "createTime");//把字段节点隐藏
 			xstream.omitField(KjryJyxxInfo.class, "createUser");//把字段节点隐藏
 			
+			xstream.omitField(KjryXsjzInfo.class, "uuid");//把字段节点隐藏
 			xstream.omitField(KjryXsjzInfo.class, "kjryJbxxInfo");//把字段节点隐藏
 			xstream.omitField(KjryXsjzInfo.class, "createTime");//把字段节点隐藏
 			xstream.omitField(KjryXsjzInfo.class, "createUser");//把字段节点隐藏
 			
+			xstream.omitField(KjryXspsInfo.class, "uuid");//把字段节点隐藏
 			xstream.omitField(KjryXspsInfo.class, "kjryJbxxInfo");//把字段节点隐藏
 			xstream.omitField(KjryXspsInfo.class, "createTime");//把字段节点隐藏
 			xstream.omitField(KjryXspsInfo.class, "createUser");//把字段节点隐藏

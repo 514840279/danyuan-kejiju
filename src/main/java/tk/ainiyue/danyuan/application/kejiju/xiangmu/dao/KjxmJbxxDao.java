@@ -36,7 +36,7 @@ public interface KjxmJbxxDao extends JpaRepository<KjxmJbxxInfo, Serializable> {
 	*  作    者 ： wang  
 	*  @throws  
 	*/
-	@Query("select t.projectDomain from KjxmJbxxInfo t ")
+	@Query("select distinct t.projectDomain from KjxmJbxxInfo t ")
 	List<String> dicJsly();
 	
 	/**  
@@ -47,7 +47,7 @@ public interface KjxmJbxxDao extends JpaRepository<KjxmJbxxInfo, Serializable> {
 	*  作    者 ： wang  
 	*  @throws  
 	*/
-	@Query("select t.projectType from KjxmJbxxInfo t ")
+	@Query("select distinct t.projectType from KjxmJbxxInfo t ")
 	List<String> dicXmlx();
 	
 	/**  
@@ -58,7 +58,7 @@ public interface KjxmJbxxDao extends JpaRepository<KjxmJbxxInfo, Serializable> {
 	*  作    者 ： wang  
 	*  @throws  
 	*/
-	@Query("select t.approvalYear from KjxmJbxxInfo t ")
+	@Query("select distinct t.approvalYear from KjxmJbxxInfo t ")
 	List<String> dicSj();
 	
 	/**  
@@ -69,7 +69,7 @@ public interface KjxmJbxxDao extends JpaRepository<KjxmJbxxInfo, Serializable> {
 	*  作    者 ： wang  
 	*  @throws  
 	*/
-	@Query("select t.region from KjxmJbxxInfo t ")
+	@Query("select distinct t.region from KjxmJbxxInfo t ")
 	List<String> dicDq();
 	
 	/**  

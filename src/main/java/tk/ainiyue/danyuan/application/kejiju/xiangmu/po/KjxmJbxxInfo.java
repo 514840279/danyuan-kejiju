@@ -563,17 +563,4 @@ public class KjxmJbxxInfo implements Serializable {
 		return kjxmDwxxInfo;
 	}
 	
-	/** 
-	*  方法名 ： toString
-	*  功    能 ： TODO(这里用一句话描述这个方法的作用)  
-	*  参    数 ： @return  
-	*  参    考 ： @see java.lang.Object#toString()  
-	*  作    者 ： Administrator  
-	*/
-	
-	@Override
-	public String toString() {
-		return "KjxmJbxxInfo [uuid=" + uuid + ", approvalYear=" + approvalYear + ", cdc=" + cdc + ", cnKeyword=" + cnKeyword + ", competentDepartment=" + competentDepartment + ", createTime=" + createTime + ", createUser=" + createUser + ", discipline=" + discipline + ", email=" + email + ", enKeyword=" + enKeyword + ", expectedIndex=" + expectedIndex + ", govemmentFund=" + govemmentFund + ", industry=" + industry + ", localFund=" + localFund + ", name=" + name + ", otherCode=" + otherCode + ", otherFund=" + otherFund + ", planAbstract=" + planAbstract + ", planId=" + planId + ", planName=" + planName + ", planUrl=" + planUrl + ", porjectLinks=" + porjectLinks + ", projectAbstract=" + projectAbstract + ", projectActualEndtime=" + projectActualEndtime + ", projectActualStartTime=" + projectActualStartTime + ", projectDomain=" + projectDomain + ", projectDomainId=" + projectDomainId + ", projectId=" + projectId + ", projectName=" + projectName + ", projectPhase=" + projectPhase + ", projectPlanEndtime=" + projectPlanEndtime + ", projectPlanStartTime=" + projectPlanStartTime + ", projectType=" + projectType + ", provincialFund=" + provincialFund + ", region=" + region + ", researchContent=" + researchContent + ", researchTarget=" + researchTarget + ", selfFund=" + selfFund + ", telephone=" + telephone + ", totalFund=" + totalFund + ", kjxmRyxxInfos=" + kjxmRyxxInfos + ", kjxmDwxxInfos=" + kjxmDwxxInfos + "]";
-	}
-	
 }

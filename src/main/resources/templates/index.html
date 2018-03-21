@@ -46,32 +46,35 @@
 		<header class="main-header">
 
 			<!-- Logo -->
-			<a href="index.html" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels --> <span class="logo-mini"><b>KJJ</b></span> <!-- logo for regular state and mobile devices --> <span class="logo-lg"><b>大连科技局</b></span>
+			<a href="index.html" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels --> 
+			<span class="logo-mini"><b>DL</b></span> 
+<!-- 			logo for regular state and mobile devices  -->
+			<span class="logo-lg"><b>大连市科技局互联互通平台</b></span>
 			</a>
 
 			<!-- Header Navbar: style can be found in header.less -->
 			<nav class="navbar navbar-static-top">
 				<!-- Sidebar toggle button-->
-				<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"> <span class="sr-only">Toggle navigation</span>
+				<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"> 
+<!-- 				<span class="sr-only">Toggle navigation</span> -->
 				</a>
 				<!-- Navbar Right Menu -->
 				<div class="navbar-custom-menu">
 
 					<ul class="nav navbar-nav">
-						<!-- 						<li><a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=ef11d05488cd61e05426a370ee142e9e187fcceaef72a2f83155852e5359d13a"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="maven" title="maven"></a></li> -->
-						<!-- Messages: style can be found in dropdown.less-->
-						
-						
-						
 						<!-- User Account: style can be found in dropdown.less -->
-						<li class="dropdown user user-menu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/> <span class="hidden-xs" th:text="${session.SPRING_SECURITY_CONTEXT.Authentication.Principal.Username}"></span>
+						<li class="dropdown user user-menu">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+						<img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/> 
+						<span class="hidden-xs" th:text="${session.SPRING_SECURITY_CONTEXT.Authentication.Principal.Username}">
+						</span>
 						</a>
 							<ul class="dropdown-menu">
 								<!-- User image -->
 								<li class="user-header"><img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
 
 									<p th:text="${session.SPRING_SECURITY_CONTEXT.Authentication.Principal.Username}">
-										Alexander Pierce - Web Developer <small>Member since Nov. 2012</small>
+<!-- 										Alexander Pierce - Web Developer <small>Member since Nov. 2012</small> -->
 									</p></li>
 								<!-- Menu Body -->
 								<!-- Menu Footer-->
@@ -105,7 +108,7 @@
 					</div>
 					<div class="pull-left info">
 						<p id="usernametext" th:text="${session.SPRING_SECURITY_CONTEXT.Authentication.Principal.Username}">Alexander Pierce</p>
-						<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+						<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
 					</div>
 				</div>
 				<!-- search form -->
@@ -121,7 +124,7 @@
 				<!-- /.search form -->
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				<ul class="sidebar-menu">
-					<li class="header">MAIN NAVIGATION</li>
+					<li class="header">导航</li>
 				</ul>
 			</section>
 			<!-- /.sidebar -->
@@ -136,31 +139,9 @@
 		<!-- /.content-wrapper -->
 
 		<footer class="main-footer">
-			<strong>大连科技局 / 2018、03</strong> 
+			<strong>大连市科技局</strong> 
 		</footer>
 
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Create the tabs -->
-			<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-				<li><a href="#control-sidebar-home-tab1" data-toggle="tab"><i class="fa fa-wrench"></i></a></li>
-				<li><a href="#control-sidebar-home-tab2" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-				<li><a href="#control-sidebar-home-tab3" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-			</ul>
-			<!-- Tab panes -->
-			<div class="tab-content">
-				<!-- Home tab content -->
-				<div class="tab-pane" id="control-sidebar-home-tab1"></div>
-				<!-- /.tab-pane -->
-				<!-- Home tab content -->
-				<div class="tab-pane" id="control-sidebar-home-tab2"></div>
-				<!-- /.tab-pane -->
-
-				<!-- Settings tab content -->
-				<div class="tab-pane" id="control-sidebar-home-tab3"></div>
-				<!-- /.tab-pane -->
-			</div>
-		</aside>
 		<!-- /.control-sidebar -->
 		<!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->

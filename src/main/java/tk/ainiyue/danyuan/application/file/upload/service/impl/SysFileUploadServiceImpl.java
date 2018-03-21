@@ -11,11 +11,11 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +27,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mysql.jdbc.StringUtils;
 import com.thoughtworks.xstream.XStream;
@@ -36,17 +37,24 @@ import tk.ainiyue.danyuan.application.file.upload.po.SysFileUploadInfo;
 import tk.ainiyue.danyuan.application.file.upload.service.SysFileUploadService;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.dao.KjcgJbxxDao;
 import tk.ainiyue.danyuan.application.kejiju.chengguo.po.KjcgJbxxInfo;
+import tk.ainiyue.danyuan.application.kejiju.renyuan.dao.KjryGzllDao;
 import tk.ainiyue.danyuan.application.kejiju.renyuan.dao.KjryJbxxDao;
+import tk.ainiyue.danyuan.application.kejiju.renyuan.dao.KjryJyxxDao;
+import tk.ainiyue.danyuan.application.kejiju.renyuan.dao.KjryXsjzDao;
+import tk.ainiyue.danyuan.application.kejiju.renyuan.dao.KjryXspsDao;
 import tk.ainiyue.danyuan.application.kejiju.renyuan.po.KjryGzllInfo;
 import tk.ainiyue.danyuan.application.kejiju.renyuan.po.KjryJbxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.renyuan.po.KjryJyxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.renyuan.po.KjryXsjzInfo;
 import tk.ainiyue.danyuan.application.kejiju.renyuan.po.KjryXspsInfo;
+import tk.ainiyue.danyuan.application.kejiju.xiangmu.dao.KjxmDwxxDao;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.dao.KjxmJbxxDao;
+import tk.ainiyue.danyuan.application.kejiju.xiangmu.dao.KjxmRyxxDao;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.po.KjxmDwxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.po.KjxmJbxxInfo;
 import tk.ainiyue.danyuan.application.kejiju.xiangmu.po.KjxmRyxxInfo;
 
+@Transactional
 @Service("sysFileUploadService")
 public class SysFileUploadServiceImpl implements SysFileUploadService {
 	//
@@ -58,6 +66,19 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 	
 	@Autowired
 	private KjryJbxxDao			kjryJbxxDao;
+	@Autowired
+	private KjryGzllDao			kjryGzllDao;
+	@Autowired
+	private KjryJyxxDao			kjryJyxxDao;
+	@Autowired
+	private KjryXsjzDao			kjryXsjzDao;
+	@Autowired
+	private KjryXspsDao			kjryXspsDao;
+	
+	@Autowired
+	private KjxmDwxxDao			kjxmDwxxDao;
+	@Autowired
+	private KjxmRyxxDao			kjxmRyxxDao;
 	@Autowired
 	private KjxmJbxxDao			kjxmJbxxDao;
 	
@@ -179,11 +200,17 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 			} else if (StringUtils.isNullOrEmpty(info2.getProjectPlanEndtime())) {
 				return "科技项目基本信息 项目计划结束时间 必填";
 			}
-			System.err.println(info2.toString());
+			info2.setUuid(UUID.randomUUID().toString());
 			info2.setCreateUser(username);
+			List<KjxmRyxxInfo> listxsj = info2.getKjxmRyxxInfos();
+			List<KjxmDwxxInfo> listgz = info2.getKjxmDwxxInfos();
+			info2.setKjxmDwxxInfos(null);
+			info2.setKjxmRyxxInfos(null);
+			kjxmJbxxDao.save(info2);
+			kjxmJbxxDao.flush();
 			
-			List<KjxmDwxxInfo> listgz = new ArrayList<>();
-			for (Object kjxmDwxxInfo : info2.getKjxmDwxxInfos()) {
+			//			List<KjxmDwxxInfo> listgz = new ArrayList<>();
+			for (Object kjxmDwxxInfo : listgz) {
 				Map<String, Object> mapgz = objectToMap(kjxmDwxxInfo);
 				KjxmDwxxInfo infogz = new KjxmDwxxInfo();
 				transMap2Bean(mapgz, infogz);
@@ -192,12 +219,14 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 				}
 				infogz.setKjxmJbxxInfo(info2);
 				infogz.setCreateUser(username);
-				listgz.add(infogz);
+				infogz.setUuid(UUID.randomUUID().toString());
+				//				listgz.add(infogz);
+				kjxmDwxxDao.save(infogz);
 			}
-			info2.setKjxmDwxxInfos(listgz);
+			//			info2.setKjxmDwxxInfos(listgz);
 			
-			List<KjxmRyxxInfo> listxsj = new ArrayList<>();
-			for (Object KjryJyxxInfo : info2.getKjxmRyxxInfos()) {
+			//			List<KjxmRyxxInfo> listxsj = new ArrayList<>();
+			for (Object KjryJyxxInfo : listxsj) {
 				Map<String, Object> mapgz = objectToMap(KjryJyxxInfo);
 				KjxmRyxxInfo infogz = new KjxmRyxxInfo();
 				transMap2Bean(mapgz, infogz);
@@ -210,11 +239,12 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 				}
 				infogz.setKjxmJbxxInfo(info2);
 				infogz.setCreateUser(username);
-				listxsj.add(infogz);
+				infogz.setUuid(UUID.randomUUID().toString());
+				//				listxsj.add(infogz);
+				kjxmRyxxDao.save(infogz);
 			}
-			info2.setKjxmRyxxInfos(listxsj);
+			//			info2.setKjxmRyxxInfos(listxsj);
 			
-			kjxmJbxxDao.save(info2);
 			message = "成功导入";
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | IntrospectionException e) {
 			message = e.toString();
@@ -252,9 +282,7 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 			KjryJbxxInfo info2 = new KjryJbxxInfo();
 			transMap2Bean(map, info2);
 			
-			if (StringUtils.isNullOrEmpty(info2.getPersonId())) {
-				return "科技人员基本信息 本地唯一标 必填";
-			} else if (StringUtils.isNullOrEmpty(info2.getName())) {
+			if (StringUtils.isNullOrEmpty(info2.getName())) {
 				return "科技人员基本信息 姓名 必填";
 			} else if (StringUtils.isNullOrEmpty(info2.getGender())) {
 				return "科技人员基本信息 性别 必填";
@@ -275,57 +303,73 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 			} else if (StringUtils.isNullOrEmpty(info2.getResearchDirection())) {
 				return "科技人员基本信息 研究方向 必填";
 			}
-			
+			info2.setPersonId(UUID.randomUUID().toString());
 			info2.setCreateUser(username);
+			
+			List<KjryJyxxInfo> listjy = info2.getKjryJyxxInfos();
+			List<KjryGzllInfo> listgz = info2.getKjryGzllInfos();
+			List<KjryXsjzInfo> listxsj = info2.getKjryXsjzInfos();
+			List<KjryXspsInfo> listxsp = info2.getKjryXspsInfos();
+			info2.setKjryGzllInfos(null);
+			info2.setKjryJyxxInfos(null);
+			info2.setKjryXsjzInfos(null);
+			info2.setKjryXspsInfos(null);
+			kjryJbxxDao.save(info2);
+			kjryJbxxDao.flush();
+			//			kjryJbxxDao.save(info2);
 			//			System.err.println(info2.toString());
-			List<KjryJyxxInfo> listjy = new ArrayList<>();
-			for (Object KjryJyxxInfo : info2.getKjryJyxxInfos()) {
+			//			List<KjryJyxxInfo> listjy = new ArrayList<>();
+			for (Object KjryJyxxInfo : listjy) {
 				Map<String, Object> mapjr = objectToMap(KjryJyxxInfo);
 				KjryJyxxInfo infojy = new KjryJyxxInfo();
 				transMap2Bean(mapjr, infojy);
 				infojy.setKjryJbxxInfo(info2);
 				infojy.setCreateUser(username);
-				listjy.add(infojy);
-				System.err.println(KjryJyxxInfo.toString());
+				infojy.setUuid(UUID.randomUUID().toString());
+				kjryJyxxDao.save(infojy);
+				//				listjy.add(infojy);
 			}
-			info2.setKjryJyxxInfos(listjy);
+			//			info2.setKjryJyxxInfos(listjy);
 			
-			List<KjryGzllInfo> listgz = new ArrayList<>();
-			for (Object KjryJyxxInfo : info2.getKjryGzllInfos()) {
+			//			List<KjryGzllInfo> listgz = new ArrayList<>();
+			for (Object KjryJyxxInfo : listgz) {
 				Map<String, Object> mapgz = objectToMap(KjryJyxxInfo);
 				KjryGzllInfo infogz = new KjryGzllInfo();
 				transMap2Bean(mapgz, infogz);
+				infogz.setUuid(UUID.randomUUID().toString());
 				infogz.setKjryJbxxInfo(info2);
 				infogz.setCreateUser(username);
-				listgz.add(infogz);
-				System.err.println(KjryJyxxInfo.toString());
+				//				listgz.add(infogz);
+				kjryGzllDao.save(infogz);
 			}
-			info2.setKjryGzllInfos(listgz);
+			//			info2.setKjryGzllInfos(listgz);
 			
-			List<KjryXsjzInfo> listxsj = new ArrayList<>();
-			for (Object KjryJyxxInfo : info2.getKjryXsjzInfos()) {
+			//			List<KjryXsjzInfo> listxsj = new ArrayList<>();
+			for (Object KjryJyxxInfo : listxsj) {
 				Map<String, Object> mapgz = objectToMap(KjryJyxxInfo);
 				KjryXsjzInfo infogz = new KjryXsjzInfo();
 				transMap2Bean(mapgz, infogz);
+				infogz.setUuid(UUID.randomUUID().toString());
 				infogz.setKjryJbxxInfo(info2);
 				infogz.setCreateUser(username);
-				listxsj.add(infogz);
-				System.err.println(KjryJyxxInfo.toString());
+				kjryXsjzDao.save(infogz);
+				//				listxsj.add(infogz);
 			}
-			info2.setKjryXsjzInfos(listxsj);
+			//			info2.setKjryXsjzInfos(listxsj);
 			
-			List<KjryXspsInfo> listxsp = new ArrayList<>();
-			for (Object KjryJyxxInfo : info2.getKjryXspsInfos()) {
+			//			List<KjryXspsInfo> listxsp = new ArrayList<>();
+			for (Object KjryJyxxInfo : listxsp) {
 				Map<String, Object> mapxs = objectToMap(KjryJyxxInfo);
 				KjryXspsInfo infoxs = new KjryXspsInfo();
 				transMap2Bean(mapxs, infoxs);
+				infoxs.setUuid(UUID.randomUUID().toString());
 				infoxs.setKjryJbxxInfo(info2);
 				infoxs.setCreateUser(username);
-				listxsp.add(infoxs);
-				System.err.println(KjryJyxxInfo.toString());
+				kjryXspsDao.save(infoxs);
+				//				listxsp.add(infoxs);
 			}
-			info2.setKjryXspsInfos(listxsp);
-			kjryJbxxDao.save(info2);
+			//			info2.setKjryXspsInfos(listxsp);
+			kjryJbxxDao.saveAndFlush(info2);
 			message = "成功导入";
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | IntrospectionException e) {
 			message = e.toString();
@@ -407,6 +451,7 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 			transMap2Bean(map, info2);
 			System.err.println(info2.toString());
 			info2.setCreateUser(username);
+			info2.setResultId(UUID.randomUUID().toString());
 			kjcgJbxxDao.save(info2);
 			message = "成功导入";
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | IntrospectionException e) {

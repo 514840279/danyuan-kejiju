@@ -15,6 +15,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -190,6 +193,7 @@ public class KjxmRyxxInfo implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "xmjb_uuid")
 	@JsonIgnore
+	@NotFound(action = NotFoundAction.IGNORE)
 	private KjxmJbxxInfo		kjxmJbxxInfo;
 	
 	/**  

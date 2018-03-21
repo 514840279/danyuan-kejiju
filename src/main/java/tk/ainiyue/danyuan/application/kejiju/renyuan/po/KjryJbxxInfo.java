@@ -680,9 +680,4 @@ public class KjryJbxxInfo implements Serializable {
 	*  作    者 ： wang  
 	*/
 	
-	@Override
-	public String toString() {
-		return "KjryJbxxInfo [bankAccount=" + bankAccount + ", bankName=" + bankName + ", birthdate=" + birthdate + ", birthplace=" + birthplace + ", cdc=" + cdc + ", createTime=" + createTime + ", createUser=" + createUser + ", degree=" + degree + ", discipline=" + discipline + ", education=" + education + ", email=" + email + ", emergencyContact=" + emergencyContact + ", emergencyNumber=" + emergencyNumber + ", ethnicGroup=" + ethnicGroup + ", fax=" + fax + ", field=" + field + ", formerName=" + formerName + ", gender=" + gender + ", homeTelephone=" + homeTelephone + ", honorary=" + honorary + ", idNumber=" + idNumber + ", idType=" + idType + ", industry=" + industry + ", introduce=" + introduce + ", microblog=" + microblog + ", mobileTelephone=" + mobileTelephone + ", name=" + name + ", nationality=" + nationality + ", nativePlace=" + nativePlace + ", officeTelephone=" + officeTelephone + ", organization=" + organization + ", organizationCity=" + organizationCity + ", organizationProperty=" + organizationProperty + ", organizationProvince=" + organizationProvince + ", otherCode=" + otherCode + ", personId=" + personId + ", personUrls=" + personUrls + ", photoUrl=" + photoUrl + ", politicalStatus=" + politicalStatus + ", porfessionalTitle=" + porfessionalTitle + ", positionLevel=" + positionLevel + ", positionTitle=" + positionTitle + ", postalAddress=" + postalAddress + ", postcode=" + postcode + ", researchDirection=" + researchDirection + ", researchType=" + researchType + ", vocationalQualifications=" + vocationalQualifications + ", kjryGzllInfos=" + kjryGzllInfos + ", kjryJyxxInfos=" + kjryJyxxInfos + ", kjryXsjzInfos=" + kjryXsjzInfos + ", kjryXspsInfos=" + kjryXspsInfos + "]";
-	}
-	
 }

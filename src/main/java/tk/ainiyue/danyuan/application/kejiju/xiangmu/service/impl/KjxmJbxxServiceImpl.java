@@ -240,11 +240,14 @@ public class KjxmJbxxServiceImpl implements KjxmJbxxService {
 			xstream.alias("KjxmJbxxInfo", KjxmJbxxInfo.class);
 			xstream.alias("KjxmDwxxInfo", KjxmDwxxInfo.class);
 			xstream.alias("KjxmRyxxInfo", KjxmRyxxInfo.class);
+			xstream.omitField(KjxmJbxxInfo.class, "uuid");//把字段节点隐藏
 			// 忽略
+			xstream.omitField(KjxmDwxxInfo.class, "uuid");//把字段节点隐藏
 			xstream.omitField(KjxmDwxxInfo.class, "kjxmJbxxInfo");//把字段节点隐藏
 			xstream.omitField(KjxmDwxxInfo.class, "createTime");//把字段节点隐藏
 			xstream.omitField(KjxmDwxxInfo.class, "createUser");//把字段节点隐藏
 			// 忽略
+			xstream.omitField(KjxmRyxxInfo.class, "uuid");//把字段节点隐藏
 			xstream.omitField(KjxmRyxxInfo.class, "kjxmJbxxInfo");//把字段节点隐藏
 			xstream.omitField(KjxmRyxxInfo.class, "createTime");//把字段节点隐藏
 			xstream.omitField(KjxmRyxxInfo.class, "createUser");//把字段节点隐藏
