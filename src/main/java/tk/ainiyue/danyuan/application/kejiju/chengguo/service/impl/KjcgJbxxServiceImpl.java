@@ -187,7 +187,7 @@ public class KjcgJbxxServiceImpl implements KjcgJbxxService {
 			fileList.add(file);
 			XStream xstream = new XStream();
 			xstream.alias("KjcgJbxxInfo", KjcgJbxxInfo.class);
-			xstream.omitField(KjcgJbxxInfo.class, "resultId");//把字段节点隐藏
+			//			xstream.omitField(KjcgJbxxInfo.class, "resultId");//把字段节点隐藏
 			
 			//			xstream.omitField(KjcgJbxxInfo.class, "createTime");//把字段节点隐藏
 			//			xstream.omitField(KjcgJbxxInfo.class, "createUser");//把字段节点隐藏

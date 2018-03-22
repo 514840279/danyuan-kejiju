@@ -303,7 +303,9 @@ public class SysFileUploadServiceImpl implements SysFileUploadService {
 			} else if (StringUtils.isNullOrEmpty(info2.getResearchDirection())) {
 				return "科技人员基本信息 研究方向 必填";
 			}
-			info2.setPersonId(UUID.randomUUID().toString());
+			if (info2.getPersonId() == null || "".equals(info2.getPersonId())) {
+				info2.setPersonId(UUID.randomUUID().toString());
+			}
 			info2.setCreateUser(username);
 			
 			List<KjryJyxxInfo> listjy = info2.getKjryJyxxInfos();

@@ -234,7 +234,7 @@ public class KjryJbxxServiceImpl implements KjryJbxxService {
 			xstream.alias("KjryJyxxInfo", KjryJyxxInfo.class);
 			xstream.alias("KjryXsjzInfo", KjryXsjzInfo.class);
 			xstream.alias("KjryXspsInfo", KjryXspsInfo.class);
-			xstream.omitField(KjryJbxxInfo.class, "personId");//把字段节点隐藏
+			//			xstream.omitField(KjryJbxxInfo.class, "personId");//把字段节点隐藏
 			// 忽略
 			xstream.omitField(KjryGzllInfo.class, "uuid");//把字段节点隐藏
 			xstream.omitField(KjryGzllInfo.class, "kjryJbxxInfo");//把字段节点隐藏
