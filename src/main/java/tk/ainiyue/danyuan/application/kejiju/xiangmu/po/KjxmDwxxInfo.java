@@ -63,7 +63,7 @@ public class KjxmDwxxInfo implements Serializable {
 	
 	// 合作单位性质
 	@Column(name = "coop_organization_property")
-	private int					coopOrganizationProperty;
+	private String				coopOrganizationProperty;
 	
 	// 合作单位电话 
 	@Column(name = "coop_organization_telephone")
@@ -209,11 +209,11 @@ public class KjxmDwxxInfo implements Serializable {
 		this.coopOrganizationId = coopOrganizationId;
 	}
 	
-	public int getCoopOrganizationProperty() {
+	public String getCoopOrganizationProperty() {
 		return this.coopOrganizationProperty;
 	}
 	
-	public void setCoopOrganizationProperty(int coopOrganizationProperty) {
+	public void setCoopOrganizationProperty(String coopOrganizationProperty) {
 		this.coopOrganizationProperty = coopOrganizationProperty;
 	}
 	

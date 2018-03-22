@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 <title></title>
 <meta charset="UTF-8" />
@@ -58,7 +58,8 @@
 						<div class="col-md-6 col-sm-12 form-group">
 							<div class="col-sm-4 strong">中图分类号</div>
 							<div class="col-sm-8">
-								<input type="text" th:value="*{KjxmJbxxInfo.cdc}" id="kejiju_xiangmu_jbxx_input_cdc" name="cdc" placeholder="中图分类号"  class="form-control" />
+<!-- 								<input type="text" th:value="*{KjxmJbxxInfo.cdc}" id="kejiju_xiangmu_jbxx_input_cdc" name="cdc" placeholder="中图分类号"  class="form-control" /> -->
+								<select style="width: 100%;" id="kejiju_xiangmu_jbxx_input_cdc"></select>
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-12 form-group">
@@ -76,7 +77,8 @@
 						<div class="col-md-6 col-sm-12 form-group">
 							<div class="col-sm-4 strong">学科分类代码</div>
 							<div class="col-sm-8">
-								<input type="text" th:value="*{KjxmJbxxInfo.discipline}" id="kejiju_xiangmu_jbxx_input_discipline" name="discipline" placeholder="学科分类代码"  class="form-control" />
+<!-- 								<input type="text" th:value="*{KjxmJbxxInfo.discipline}" id="kejiju_xiangmu_jbxx_input_discipline" name="discipline" placeholder="学科分类代码"  class="form-control" /> -->
+								<select style="width: 100%;" id="kejiju_xiangmu_jbxx_input_discipline"></select>
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-12 form-group">
@@ -106,7 +108,8 @@
 						<div class="col-md-6 col-sm-12 form-group">
 							<div class="col-sm-4 strong">行业分类代码</div>
 							<div class="col-sm-8">
-								<input type="text" th:value="*{KjxmJbxxInfo.industry}" id="kejiju_xiangmu_jbxx_input_industry" name="industry" placeholder="行业分类代码"  class="form-control" />
+<!-- 								<input type="text" th:value="*{KjxmJbxxInfo.industry}" id="kejiju_xiangmu_jbxx_input_industry" name="industry" placeholder="行业分类代码"  class="form-control" /> -->
+								<select style="width: 100%;" id="kejiju_xiangmu_jbxx_input_industry"></select>
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-12 form-group">
@@ -208,7 +211,8 @@
 						<div class="col-md-6 col-sm-12 form-group">
 							<div class="col-sm-4 strong">项目执行阶段</div>
 							<div class="col-sm-8">
-								<input type="text" th:value="*{KjxmJbxxInfo.projectPhase}" id="kejiju_xiangmu_jbxx_input_projectPhase" name="projectPhase" placeholder="项目执行阶段"  class="form-control" />
+<!-- 								<input type="text" th:value="*{KjxmJbxxInfo.projectPhase}" id="kejiju_xiangmu_jbxx_input_projectPhase" name="projectPhase" placeholder="项目执行阶段"  class="form-control" /> -->
+									<select style="width: 100%;" id="kejiju_xiangmu_jbxx_input_projectPhase"></select>
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-12 form-group">
@@ -284,6 +288,15 @@
 			</div>
 		</div>
 	</section>
+<script th:inline="javascript">
+ var projectPhase = [[*{KjxmJbxxInfo.projectPhase}]];
+ var discipline = [[*{KjxmJbxxInfo.discipline}]];
+ var industry = [[*{KjxmJbxxInfo.industry}]];
+ var cdc = [[*{KjxmJbxxInfo.cdc}]];
+ 
+ 
+ </script>
+	
 <script type="text/javascript" src="pages/kejiju/xiangmu/jbxx_upd.js"></script>	
 </body>
 </html>

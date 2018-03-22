@@ -94,7 +94,8 @@
 						<div class="col-md-6 col-sm-12 form-group">
 							<div class="col-sm-4 strong">合作单位性质</div>
 							<div class="col-sm-8">
-								<input type="text" th:value="*{kjxmDwxxInfo.coopOrganizationProperty}" id="kejiju_xiangmu_dwxx_input_coopOrganizationProperty" name="coopOrganizationProperty" placeholder="合作单位性质" class="form-control" />
+<!-- 								<input type="text" th:value="*{kjxmDwxxInfo.coopOrganizationProperty}" id="kejiju_xiangmu_dwxx_input_coopOrganizationProperty" name="coopOrganizationProperty" placeholder="合作单位性质" class="form-control" /> -->
+								<select style="width: 100%;" id="kejiju_xiangmu_dwxx_input_coopOrganizationProperty"></select>
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-12 form-group">
@@ -167,7 +168,8 @@
 						<div class="col-md-6 col-sm-12 form-group">
 							<div class="col-sm-4 strong">主承担单位性质</div>
 							<div class="col-sm-8">
-								<input type="text" th:value="*{kjxmDwxxInfo.mainOrganizationProperty}" id="kejiju_xiangmu_dwxx_input_mainOrganizationProperty" name="mainOrganizationProperty" placeholder="主承担单位性质" class="form-control" />
+<!-- 								<input type="text" th:value="*{kjxmDwxxInfo.mainOrganizationProperty}" id="kejiju_xiangmu_dwxx_input_mainOrganizationProperty" name="mainOrganizationProperty" placeholder="主承担单位性质" class="form-control" /> -->
+								<select style="width: 100%;" id="kejiju_xiangmu_dwxx_input_mainOrganizationProperty"></select>
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-12 form-group">
@@ -203,6 +205,11 @@
 			</div>
 		</div>
 	</section>
+	
+	<script th:inline="javascript">
+ var coopOrganizationProperty = [[*{kjxmDwxxInfo.coopOrganizationProperty}]];
+ var mainOrganizationProperty = [[*{kjxmDwxxInfo.mainOrganizationProperty}]];
+ </script>
 	<script type="text/javascript" src="pages/kejiju/xiangmu/danwei_upd.js"></script>
 </body>
 </html>

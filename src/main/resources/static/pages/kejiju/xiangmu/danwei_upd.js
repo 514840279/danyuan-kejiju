@@ -1,4 +1,35 @@
 $(function() {
+	danweiValidataForm();
+	ajaxPost("/dic/dicDwxz", null, xiangmudanweiLoadSelect2);
+});
+function xiangmudanweiLoadSelect2(result){
+	var data = [];
+	$.each(result,function(index,value){
+		data.push({id:value.dwxz,text:value.dwxz});
+	});
+	
+	$('#kejiju_xiangmu_dwxx_input_mainOrganizationProperty').select2({
+	    placeholder: "请选择",
+	    tags: true,
+	    allowClear: true,
+//	    multiple:"multiple",
+	    minimumSelectionLength: 1, 
+	    maximumSelectionLength: 3, // 限制数量  
+	    data:data
+	}).val(mainOrganizationProperty).trigger('change');
+	
+	$('#kejiju_xiangmu_dwxx_input_coopOrganizationProperty').select2({
+	    placeholder: "请选择",
+	    tags: true,
+	    allowClear: true,
+//	    multiple:"multiple",
+	    minimumSelectionLength: 1, 
+	    maximumSelectionLength: 3, // 限制数量  
+	    data:data
+	}).val(coopOrganizationProperty).trigger('change');
+	
+}
+function danweiValidataForm(){
 	/**
 	 * 下面是进行插件初始化 你只需传入相应的键值对
 	 */
@@ -23,19 +54,19 @@ $(function() {
 		        /* 最后一个没有逗号 */
 		        }
 		    },coopOrganizationId : {/* 键名username和input name值对应 */
-		        message : '主承担单位无效',
+		        message : '合作单位排序号无效',
 		        validators : {
 		            notEmpty : {/* 非空提示 */
-			            message : '主承担单位不能为空'
+			            message : '合作单位排序号不能为空'
 		            },
 		            stringLength : {/* 长度提示 */
 		                max : 3,
-		                message : '用户名长度必须在3之内'
+		                message : '合作单位排序号长度必须在3之内'
 		            }
 		        /* 最后一个没有逗号 */
 		        }
 		    },coopOrganizationProperty : {/* 键名username和input name值对应 */
-		        message : '主承担单位无效',
+		        message : '合作单位性质无效',
 		        validators : {
                     regexp: {
                         regexp: /^[\d]*$/,
@@ -82,8 +113,7 @@ $(function() {
 			ajaxPost("/kjxmDwxxInfo/save", data, updkejijuxiangmudanweiSuccess, 5000, findError);
 		}
 	});
-});
-
+}
 function updkejijuxiangmudanweiSuccess(result) {
 	$("#kejiju_xiangmu_danweixinxi_table_datagrid").bootstrapTable('refresh');
 	removeByValue(_history, 'xiangmu_danwei_add');

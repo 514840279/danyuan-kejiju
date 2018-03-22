@@ -10,23 +10,22 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
- * The persistent class for the kj_dic_cglx database table.
+ * The persistent class for the kj_dic_ryjs database table.
  * 
  */
 @Entity
-@Table(name = "kj_dic_cglx")
-
-@NamedQuery(name = "KjDicCglx.findAll", query = "SELECT k FROM KjDicCglx k")
-public class KjDicCglx implements Serializable {
+@Table(name = "kj_dic_ryjs")
+@NamedQuery(name = "KjDicRyjs.findAll", query = "SELECT k FROM KjDicRyjs k")
+public class KjDicRyjs implements Serializable {
 	private static final long	serialVersionUID	= 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer				id;
 	
-	private String				cglx;
+	private String				ryjs;
 	
-	public KjDicCglx() {
+	public KjDicRyjs() {
 	}
 	
 	public Integer getId() {
@@ -37,12 +36,12 @@ public class KjDicCglx implements Serializable {
 		this.id = id;
 	}
 	
-	public String getCglx() {
-		return this.cglx;
+	public String getRyjs() {
+		return this.ryjs;
 	}
 	
-	public void setCglx(String cglx) {
-		this.cglx = cglx;
+	public void setRyjs(String ryjs) {
+		this.ryjs = ryjs;
 	}
 	
 }
